@@ -1,0 +1,9 @@
+services:
+  python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8181:8181"
+    volumes:
+    - .:/app.ro

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-book Library</title>
+</head>
+<body>
+    <header>
+        <!-- You'll add your header here -->
+    </header>
+
+    <main>
+        <section id="random-books">
+            <h2>Known from TikTok</h2>
+            <div id="tiktok-books" class="book-grid">
+                <!-- Books will be inserted here by JavaScript -->
+            </div>
+
+            <h2>Explore newly added books</h2>
+            <div id="new-books" class="book-grid">
+                <!-- Books will be inserted here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- You'll add your footer here -->
+    </footer>
+
+    <script>
+        async function fetchRandomBooks(count = 6) {
+            try {
+                const count = 6
+                const response = await fetch(`http://localhost:8080/books?n=${count}`);
+                const books = await response.json();
+                return books;
+            } catch (error) {
+                console.error('Error fetching random books:', error);
+                return [];
+            }
+        }
+
+        async function displayBooks() {
+            // Fetch two sets of random books
+            const tiktokBooks = await fetchRandomBooks(6);
+            const newBooks = await fetchRandomBooks(6);
+
+            // Display TikTok books
+            const tiktokContainer = document.getElementById('tiktok-books');
+            tiktokBooks.forEach(book => {
+                const bookElement = document.createElement('div');
+                bookElement.className = 'book-card';
+                bookElement.innerHTML = `
+                    <h3>${book.title}</h3>
+                    <p>Author: ${book.author}</p>
+                    <p>Year: ${book.publishing_year}</p>
+                    <p>Publisher: ${book.publishing_company}</p>
+                `;
+                tiktokContainer.appendChild(bookElement);
+            });
+
+            // Display new books
+            const newBooksContainer = document.getElementById('new-books');
+            newBooks.forEach(book => {
+                const bookElement = document.createElement('div');
+                bookElement.className = 'book-card';
+                bookElement.innerHTML = `
+                    <h3>${book.title}</h3>
+                    <p>Author: ${book.author}</p>
+                    <p>Year: ${book.publishing_year}</p>
+                    <p>Publisher: ${book.publishing_company}</p>
+                `;
+                newBooksContainer.appendChild(bookElement);
+            });
+        }
+
+        // Load books when the page loads
+        document.addEventListener('DOMContentLoaded', displayBooks);
+    </script>
+</body>
+</html>

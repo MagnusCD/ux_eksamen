@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+:root {
+    --primary-col: #e18985;  
+    --secondary-col: #129aca; 
+    --tertiary-col: #19242e;   
+    --background-col: #f5fbef; 
+    
+    --search-background: #ffffff;
+    --card-background: #e6e8e6;
+    
+    --cta-border-radius: 2rem;     
+    --search-border-radius: 1.5rem; 
+    --card-border-radius: 1rem;   
+
+    --font-header: "Merriweather", serif;
+    --font-body: "Source Sans Pro", sans-serif;
+
+    --font-weight-header-mid: 400;
+    --font-weight-header-large: 400;
+    --font-weight-body-mid: 400;
+    --font-weight-body-small: 400;
+
+    --font-size-logo: 1.5rem;
+    --font-size-h1: 2.5rem;
+    --font-size-nav: 1rem;
+    --font-size-body: 0.875rem;
+    --font-size-footer: 0.875rem;
+    --font-size-button: 0.875rem;
+}

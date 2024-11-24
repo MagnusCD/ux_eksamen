@@ -3,80 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-book Library</title>
-</head>
+    <title>PageFlow</title>
+    <link rel="stylesheet" href="static/css/general.css">
+    <link rel="stylesheet" href="static/css/burgermenu.css">
+    <link rel="stylesheet" href="static/css/footerheader.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <script defer src="static/js/books.js"></script></head>
+    <script defer src="static/js/navigation.js"></script></head>
 <body>
     <header>
-        <!-- You'll add your header here -->
+
+        <button class="burger-menu" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="header-content">
+            <a href="/" class="logo">
+                <img src="static/images/logo.svg" alt="PageFlow Logo">
+            </a>
+            <div class="nav-right">
+                <button class="button button-primary">Sign up for free</button>
+                <button class="button button-dark">Log in</button>
+            </div>
+        </div>  
+
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="search" placeholder="Search" />
+            </div>
+        </div>
     </header>
 
     <main>
-        <section id="random-books">
-            <h2>Known from TikTok</h2>
-            <div id="tiktok-books" class="book-grid">
-                <!-- Books will be inserted here by JavaScript -->
+        <section class="books-section">
+            <div class="books-header">
+                <h1>Known from TikTok</h1>
+                <button class="button button-primary">See more books</button>
+            </div>
+            <div id="tiktok-books" class="books-grid">
+            
             </div>
 
-            <h2>Explore newly added books</h2>
-            <div id="new-books" class="book-grid">
-                <!-- Books will be inserted here by JavaScript -->
+            <div class="books-header">
+                <h2>Explore newly added books</h2>
+                <button class="button button-primary">See more books</button>
+            </div>
+            <div id="new-books" class="books-grid">
+             
             </div>
         </section>
     </main>
 
     <footer>
-        <!-- You'll add your footer here -->
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>E-book logo</h3>
+                <p>Tel: +45 11 22 33 44</p>
+                <p>E-mail: books@mail.com</p>
+                <p>Opening hours:</p>
+                <p>Mon - fri: 10am - 5pm</p>
+                <p>Sat - sun: 10am - 3pm</p>
+                <p>Address:</p>
+                <p>Somestreet 12</p>
+                <p>2222 Sometown</p>
+            </div>
+            <div class="footer-section">
+                <h3>Help and information</h3>
+                <a href="#">About us</a>
+                <a href="#">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h3>Keep me posted</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">TikTok</a>
+                    <a href="#" class="social-icon">Insta</a>
+                    <a href="#" class="social-icon">Fb</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KEA Production</p>
+        </div>
     </footer>
-
-    <script>
-        async function fetchRandomBooks(count = 6) {
-            try {
-                const count = 6
-                const response = await fetch(`http://localhost:8080/books?n=${count}`);
-                const books = await response.json();
-                return books;
-            } catch (error) {
-                console.error('Error fetching random books:', error);
-                return [];
-            }
-        }
-
-        async function displayBooks() {
-            // Fetch two sets of random books
-            const tiktokBooks = await fetchRandomBooks(6);
-            const newBooks = await fetchRandomBooks(6);
-
-            // Display TikTok books
-            const tiktokContainer = document.getElementById('tiktok-books');
-            tiktokBooks.forEach(book => {
-                const bookElement = document.createElement('div');
-                bookElement.className = 'book-card';
-                bookElement.innerHTML = `
-                    <h3>${book.title}</h3>
-                    <p>Author: ${book.author}</p>
-                    <p>Year: ${book.publishing_year}</p>
-                    <p>Publisher: ${book.publishing_company}</p>
-                `;
-                tiktokContainer.appendChild(bookElement);
-            });
-
-            // Display new books
-            const newBooksContainer = document.getElementById('new-books');
-            newBooks.forEach(book => {
-                const bookElement = document.createElement('div');
-                bookElement.className = 'book-card';
-                bookElement.innerHTML = `
-                    <h3>${book.title}</h3>
-                    <p>Author: ${book.author}</p>
-                    <p>Year: ${book.publishing_year}</p>
-                    <p>Publisher: ${book.publishing_company}</p>
-                `;
-                newBooksContainer.appendChild(bookElement);
-            });
-        }
-
-        // Load books when the page loads
-        document.addEventListener('DOMContentLoaded', displayBooks);
-    </script>
 </body>
 </html>

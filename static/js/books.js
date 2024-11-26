@@ -1,5 +1,4 @@
-// Fetch functions
-async function fetchRandomBooks(count = 6) {
+async function fetchRandomBooks(count = 10) {
     try {
         const response = await fetch(`http://localhost:8080/books?n=${count}`);
         const books = await response.json();
@@ -10,54 +9,34 @@ async function fetchRandomBooks(count = 6) {
     }
 }
 
-async function fetchBookDetails(bookId) {
-    try {
-        const response = await fetch(`http://localhost:8080/books/${bookId}`);
-        const bookDetails = await response.json();
-        return bookDetails;
-    } catch (error) {
-        console.error('Error fetching book details:', error);
-        return null;
-    }
-}
-
-// Display functions
-function createBookCard(book, details) {
+function createBookCard(books) {
     return `
         <div class="book-card">
-            <div class="book-cover loading">
+            <div class="book-cover">
                 <img 
-                    src="${details?.cover || '/static/images/placeholder-cover.png'}" 
-                    alt="${book.title}"
-                    onerror="this.style.display='none'"
-                    onload="this.parentElement.classList.remove('loading')"
+                    src="${books.cover || '/static/images/placeholder-cover.png'}" 
+                    alt="${books.title}"
                 />
                 <button class="heart-icon" aria-label="Add to favorites">♡</button>
             </div>
-            <h3>${book.title}</h3>
-            <p>${book.author}</p>
+            <h3>${books.title}</h3>
+            <p>${books.author}</p>
         </div>
     `;
 }
 
 async function displayBooks() {
-    const tiktokBooks = await fetchRandomBooks(5);
-    const newBooks = await fetchRandomBooks(5);
+    try {
+        const books = await fetchRandomBooks(10);
+        const allBooksContainer = document.getElementById('all-books');
+        
+        allBooksContainer.innerHTML = '';
 
-    const tiktokContainer = document.getElementById('tiktok-books');
-    const newBooksContainer = document.getElementById('new-books');
-    
-    tiktokContainer.innerHTML = '';
-    newBooksContainer.innerHTML = '';
-
-    for (const book of tiktokBooks) {
-        const bookDetails = await fetchBookDetails(book.book_id);
-        tiktokContainer.insertAdjacentHTML('beforeend', createBookCard(book, bookDetails));
-    }
-
-    for (const book of newBooks) {
-        const bookDetails = await fetchBookDetails(book.book_id);
-        newBooksContainer.insertAdjacentHTML('beforeend', createBookCard(book, bookDetails));
+        for (const book of books) {
+            allBooksContainer.insertAdjacentHTML('beforeend', createBookCard(book));
+        }
+    } catch (error) {
+        console.error('Error displaying books:', error);
     }
 }
 

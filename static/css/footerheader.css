@@ -1,67 +1,141 @@
-header {
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.logo img {
+    width: 250px;
+    height: 80px;
 }
-
-.logo {
-    font-family: var(--font-header);
-    font-size: var(--font-size-logo);
-    color: var(--tertiary-col);
-    text-decoration: none;
-}
-
-.nav-buttons {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-/* Search Section */
-.search-section {
-    padding: 1rem 2rem;
-}
-
-.search-bar {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-input[type="search"] {
-    flex: 1;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: var(--search-border-radius);
-    background-color: var(--search-background);
-}
-
-.category-buttons {
-    display: flex;
-    gap: 1rem;
-}
-
-footer {
-    background-color: var(--secondary-col);
-    color: white;
-    padding: 2rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.social-icons {
-    display: flex;
-    gap: 1rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .footer-content {
-        grid-template-columns: 1fr;
+    
+    header {
+        background-color: var(--background-col);
     }
-}
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-bottom: 1rem;
+    }
+
+    .search-section {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        background: white;
+        border-radius: 2rem;
+        padding: 0.5rem 1.5rem;
+        margin-top: 1rem;
+        border: 1px solid black;
+    }
+
+    .search-icon {
+        color: var(--tertiary-col);
+        margin-right: 0.5rem;
+    }
+
+    input[type="search"] {
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 0.5rem;
+        font-family: var(--font-body);
+        background: transparent;
+    }
+
+    .button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 2rem;
+        border: none;
+        cursor: pointer;
+        font-family: var(--font-body);
+        transition: opacity 0.2s;
+    }
+
+    .button:hover {
+        opacity: 0.9;
+    }
+
+    .button-primary {
+        background-color: var(--primary-col);
+        color: white;
+    }
+
+    .button-dark {
+        background-color: var(--tertiary-col);
+        color: white;
+    }
+
+    @media (max-width: 768px) {        
+        .nav-right {
+            display: none; /* Skjules i mobil og vises i burger menu */
+        }
+        
+        .nav-right.active {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 250px;
+            background: white;
+            padding: 4rem 2rem 2rem;
+            gap: 1rem;
+            z-index: 5;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    footer {
+        background-color: var(--secondary-col);
+        color: white;
+        padding: 2rem;
+        margin: -10px;
+        margin-top: 50px;
+    }
+    
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        max-width: 1200px;  /* Matcher header max-width */
+        margin: 0 auto;     /* Centrerer indholdet */
+        text-align: center; /* Centrerer teksten */
+    }
+    
+    .footer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center; /* Centrerer indholdet vertikalt */
+    }
+    
+    .social-icons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center; /* Centrerer sociale ikoner */
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+    }

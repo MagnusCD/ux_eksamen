@@ -2,11 +2,13 @@ body {
     background-color: var(--background-col);
     font-family: var(--font-body);
     color: var(--tertiary-col);
-    margin: 0;
-    padding: 0;
 }
 
-/* Book Grid */
+main {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
 .books-section {
     padding: 2rem;
 }

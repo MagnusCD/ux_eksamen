@@ -45,36 +45,23 @@ input:focus {
 .button-primary {
     background-color: var(--primary-col);
     color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--cta-border-radius);
+    border: none;
+    cursor: pointer;
 }
 
 .button-dark {
     background-color: var(--tertiary-col);
     color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--cta-border-radius);
+    border: none;
+    cursor: pointer;
 }
 
 .button-outline {
     background-color: transparent;
     border: 1px solid var(--tertiary-col);
     color: var(--tertiary-col);
-}
-
-
-@media (min-width: 1050px) {
-
-    h1, h2, .logo {
-        font-family: var(--font-header);
-        font-size: var(--font-logo-rem-desk);
-        font-weight: var(--font-weight-header-large);
-    }
-
-    h1 {
-        font-size: var(--font-h1-rem-desk);
-    }
-
-    button.cta {
-        font-size: var(--font-logo-rem-desk);
-        font-weight: var(--font-weight-header-mid);
-    }
-
-
 }

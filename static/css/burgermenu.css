@@ -26,5 +26,6 @@
 @media (max-width: 768px) {
     .burger-menu {
         display: flex;
+        position: fixed;
     }
 }

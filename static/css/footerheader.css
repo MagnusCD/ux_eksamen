@@ -1,12 +1,14 @@
 /* Header Section */
 header {
     background-color: var(--background-col);
-    padding: 1rem 2rem; /* Tilføjet padding til header */
+    padding: 1rem 2rem;
 }
 
+
 .logo img {
-    width: 250px;
+    width: 270px;
     height: 80px;
+    margin-left: -30px;
 }
 
 .header-content {
@@ -23,6 +25,10 @@ header {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.nav-link.active {
+    color: var(--primary-col);
 }
 
 .nav-link {
@@ -62,7 +68,9 @@ header {
 
 /* Search Section */
 .search-section {
-    max-width: 1200px;
+    max-width: 1125px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin: 0 auto;
 }
 
@@ -136,31 +144,29 @@ footer {
     margin-top: 2rem;
 }
 
-/* Mobile Responsive */
 @media (max-width: 768px) {
     .footer-content {
         grid-template-columns: 1fr;
     }
 
-    @media (max-width: 768px) {
-        #nav-guest-menu,
-        #nav-authenticated-menu {
-            display: none !important; /* Override inline styles */
-        }
-    
-        #nav-guest-menu.active,
-        #nav-authenticated-menu.active {
-            display: flex !important;
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100vh;
-            width: 250px;
-            background: white;
-            padding: 4rem 2rem 2rem;
-            gap: 1rem;
-            z-index: 5;
-        }
+    #nav-guest-menu,
+    #nav-authenticated-menu {
+        display: none !important;
+    }
+
+    #nav-guest-menu.active,
+    #nav-authenticated-menu.active {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 250px;
+        background: white;
+        padding: 4rem 2rem 2rem;
+        gap: 1rem;
+        z-index: 5;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Samme skygge som forms */
     }
 }

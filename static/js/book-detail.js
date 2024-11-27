@@ -1,4 +1,3 @@
-// book.details.js
 function checkLoginStatus() {
     return localStorage.getItem('userId') !== null;
 }
@@ -18,19 +17,28 @@ async function fetchBookDetails(bookId) {
     }
 }
 
-function displayBookDetails(book) {
+function displayBookDetails(book, bookId) {
     const isLoggedIn = checkLoginStatus();
     const loanButton = isLoggedIn ? 
-        `<button class="button button-primary" onclick="loanBook(${book.book_id})">Loan this book</button>` :
+        `<button class="button button-primary" onclick="loanBook(${bookId})">Loan this book</button>` :
         `<button class="button button-primary" onclick="showLoginMessage()">Loan this book</button>`;
 
     const addToFavoritesButton = isLoggedIn ?
-        `<button class="button button-secondary" onclick="addToFavorites(${book.book_id})">
+        `<button class="button button-secondary" onclick="addToFavorites(${bookId})">
             <i class="fa-regular fa-heart"></i> Add to favorites
         </button>` :
         `<button class="button button-secondary" onclick="showLoginMessage()">
-            <i class="fa-solid fa-heart"></i> Add to favorites
+            <i class="fa-regular fa-heart"></i> Add to favorites
         </button>`;
+
+    const authorElement = document.createElement('a');
+    authorElement.classList.add('author');
+    authorElement.textContent = book.author;
+    authorElement.href = `/author.htm?name=${encodeURIComponent(book.author)}`;
+    authorElement.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.location.href = authorElement.href;
+    });
 
     const bookDetailsContainer = document.getElementById('book-details');
     
@@ -43,7 +51,7 @@ function displayBookDetails(book) {
         </div>
         <div class="book-info">
             <h1>${book.title}</h1>
-            <p class="author">By ${book.author}</p>
+            <p class="author">By ${authorElement.outerHTML}</p>
             
             <div class="book-meta">
                 <div>
@@ -56,8 +64,10 @@ function displayBookDetails(book) {
                 </div>
             </div>
             
-            ${loanButton}
-            ${addToFavoritesButton}
+            <div class="button-group">
+                ${loanButton}
+                ${addToFavoritesButton}
+            </div>
         </div>
     `;
 }
@@ -75,10 +85,19 @@ async function loanBook(bookId) {
         });
 
         if (response.ok) {
-            alert('Book loaned successfully!');
+            // Display a more detailed success message
+            const message = 
+                'Book loaned successfully!\n\n' +
+                'An email will be sent to your registered email address with a link to access the e-book.\n' +
+                'You can loan this book for 30 days.';
+            alert(message);
         } else {
             const data = await response.json();
-            alert(data.error || 'Error loaning book.');
+            if (data.error === "This user has still this book on loan") {
+                alert("You already have this book on loan. You can only loan the same book again after 30 days from the previous loan.");
+            } else {
+                alert(data.error || 'Error loaning book.');
+            }
         }
     } catch (error) {
         console.error('Error:', error);
@@ -92,34 +111,37 @@ async function addToFavorites(bookId) {
         return;
     }
 
-    try {
-        const userId = localStorage.getItem('userId');
-        const response = await fetch(`http://localhost:8080/users/${userId}/favorites/${bookId}`, {
-            method: 'POST'
-        });
+    const button = event.target.closest('button');
+    const icon = button.querySelector('i');
+    
+    // Toggle heart icon
+    icon.classList.toggle('fa-regular');
+    icon.classList.toggle('fa-solid');
 
-        if (response.ok) {
-            alert('Book added to favorites!');
-        } else {
-            const data = await response.json();
-            alert(data.error || 'Error adding book to favorites.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error adding book to favorites.');
+    // Here, we would normally make an API call to save the favorite
+    // Since the API doesn't have a favorites endpoint, we're storing it in localStorage
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const index = favorites.indexOf(bookId);
+    
+    if (index === -1) {
+        favorites.push(bookId);
+        alert('Book added to favorites!');
+    } else {
+        favorites.splice(index, 1);
+        alert('Book removed from favorites!');
     }
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-// When the page loads
 document.addEventListener('DOMContentLoaded', async () => {
-    // Get book ID from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('id');
 
     if (bookId) {
         const book = await fetchBookDetails(bookId);
         if (book) {
-            displayBookDetails(book);
+            displayBookDetails(book, bookId);
         } else {
             document.getElementById('book-details').innerHTML = 
                 '<p>Sorry, this book could not be found.</p>';

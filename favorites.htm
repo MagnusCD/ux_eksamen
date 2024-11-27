@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
+    <link rel="stylesheet" href="static/css/books.css">
     <script defer src="static/js/navigation.js"></script>
     <script defer src="static/js/favorites.js"></script>
 </head>
@@ -41,11 +42,15 @@
         </div>
      </header>
 
-    <main>
-        <div class="book-list-container">
-            <h1>My Favorites</h1>
-            <div id="favorites-container" class="book-list"></div>
-        </div>
+     <main>
+        <section class="books-section">
+            <div class="books-header">
+                <h1>My Favorites</h1>
+            </div>
+            <div id="favorites-container" class="books-grid">
+                <!-- Favorite books will be inserted here -->
+            </div>
+        </section>
     </main>
 
     <footer>

@@ -1,4 +1,3 @@
-// Fetch functions
 async function fetchAuthorById(authorId) {
     try {
         const response = await fetch(`http://localhost:8080/authors`);
@@ -21,36 +20,30 @@ async function fetchBooksByAuthor(authorId) {
     }
 }
 
-// Display functions
 function displayAuthorBooks(books, authorName) {
-    const bookList = document.getElementById('book-list');
     document.getElementById('author-name').textContent = `Books by ${authorName}`;
-
+    const bookList = document.getElementById('book-list');
+    
     if (books.length > 0) {
         books.forEach(book => {
-            const bookElement = document.createElement('div');
-            bookElement.classList.add('book-item');
-            bookElement.innerHTML = `
-                <div class="book-cover">
-                    <a href="/book.htm?id=${book.book_id}">
+            bookList.insertAdjacentHTML('beforeend', `
+                <div class="book-card" onclick="window.location.href='/book.htm?id=${book.book_id}'">
+                    <div class="book-cover">
                         <img src="${book.cover || '/static/images/placeholder-cover.png'}"
                              alt="${book.title}"
-                             onerror="this.src='/static/images/placeholder-cover.png'">
-                    </a>
+                             onerror="this.src='/static/images/placeholder-cover.png'"
+                        />
+                    </div>
+                    <h3>${book.title}</h3>
+                    <p>${book.author}</p>
                 </div>
-                <div class="book-info">
-                    <h3><a href="/book.htm?id=${book.book_id}">${book.title}</a></h3>
-                    <p class="publishing-year">${book.publishing_year}</p>
-                </div>
-            `;
-            bookList.appendChild(bookElement);
+            `);
         });
     } else {
         bookList.innerHTML = '<p>No books found for this author.</p>';
     }
 }
 
-// Initialize page
 async function initializeAuthorPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const authorId = urlParams.get('a');
@@ -70,5 +63,4 @@ async function initializeAuthorPage() {
     displayAuthorBooks(books, author.author_name);
 }
 
-// Start when page loads
 document.addEventListener('DOMContentLoaded', initializeAuthorPage);

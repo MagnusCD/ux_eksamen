@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
+    <link rel="stylesheet" href="static/css/books.css">
     <script defer src="static/js/navigation.js"></script>
     <script defer src="static/js/author.js"></script>
 </head>
@@ -37,10 +38,14 @@
     </header>
 
     <main>
-        <div class="book-list-container">
-            <h1 id="author-name"></h1>
-            <div id="book-list" class="book-list"></div>
-        </div>
+        <section class="books-section">
+            <div class="books-header">
+                <h1 id="author-name"></h1>
+            </div>
+            <div id="book-list" class="books-grid">
+                <!-- Books will be inserted here -->
+            </div>
+        </section>
     </main>
 
     <footer>

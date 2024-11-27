@@ -1,6 +1,11 @@
 /* general.css */
 @import '_variables.css';
 
+main {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
 body {
     background-color: var(--background-col);
     font-family: var(--font-body);

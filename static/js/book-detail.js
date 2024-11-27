@@ -28,6 +28,18 @@ async function fetchBookDetailsForAdmin(bookId) {
     }
 }
 
+async function findAuthorId(authorName) {
+    try {
+        const response = await fetch('http://localhost:8080/authors');
+        const authors = await response.json();
+        const author = authors.find(a => a.author_name === authorName);
+        return author ? author.author_id : null;
+    } catch (error) {
+        console.error('Error fetching author ID:', error);
+        return null;
+    }
+}
+
 // Display functions
 async function displayBookDetails(book, bookId) {
     const isLoggedIn = checkLoginStatus();
@@ -41,7 +53,7 @@ async function displayBookDetails(book, bookId) {
         ? `<button class="button button-secondary" onclick="addToFavorites(${bookId})"><i class="fa-regular fa-heart"></i> Add to favorites</button>`
         : `<button class="button button-secondary" onclick="showLoginMessage()"><i class="fa-regular fa-heart"></i> Add to favorites</button>`;
 
-    const authorElement = createAuthorLink(book);
+    const authorElement = await createAuthorLink(book);
 
     const bookDetailsContainer = document.getElementById('book-details');
     bookDetailsContainer.innerHTML = `
@@ -70,15 +82,18 @@ async function displayBookDetails(book, bookId) {
     }
 }
 
-function createAuthorLink(book) {
+async function createAuthorLink(book) {
+    const authorId = await findAuthorId(book.author);
     const authorElement = document.createElement('a');
     authorElement.classList.add('author');
     authorElement.textContent = book.author;
-    authorElement.href = `/author.htm?a=${book.author_id}`;
-    authorElement.addEventListener('click', (event) => {
-        event.preventDefault();
-        window.location.href = authorElement.href;
-    });
+    if (authorId) {
+        authorElement.href = `/author.htm?a=${authorId}`;
+        authorElement.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = authorElement.href;
+        });
+    }
     return authorElement;
 }
 
@@ -143,7 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (bookId) {
         const book = await fetchBookDetails(bookId);
         if (book) {
-            displayBookDetails(book, bookId);
+            await displayBookDetails(book, bookId);
         } else {
             document.getElementById('book-details').innerHTML = '<p>Sorry, this book could not be found.</p>';
         }

@@ -24,14 +24,27 @@ async function fetchRandomBooks(count = 10) {
         return [];
     }
 }
+async function fetchBookDetails(bookId) {
+    try {
+        const response = await fetch(`http://localhost:8080/books/${bookId}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching book details:', error);
+        return null;
+    }
+}
+async function createBookCard(book) {
+    // Fetch book details to get the cover
+    const bookDetails = await fetchBookDetails(book.book_id);
+    const coverUrl = bookDetails?.cover || '/static/images/placeholder-cover.png';
 
-function createBookCard(book) {
     return `
         <div class="book-card" onclick="window.location.href='/book.htm?id=${book.book_id}'">
             <div class="book-cover">
                 <img 
-                    src="/static/images/placeholder-cover.png"
+                    src="${coverUrl}"
                     alt="${book.title}"
+                    onerror="this.src='/static/images/placeholder-cover.png'"
                 />
             </div>
             <h3>${book.title}</h3>
@@ -56,37 +69,39 @@ async function displayBooks(books) {
     allBooksContainer.innerHTML = '';
 
     if (Array.isArray(books)) {
-        books.forEach(book => {
-            allBooksContainer.insertAdjacentHTML('beforeend', createBookCard(book));
-        });
+        for (const book of books) {
+            const bookCard = await createBookCard(book);
+            allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+        }
     } else {
         const initialBooks = await fetchRandomBooks(10);
-        initialBooks.forEach(book => {
-            allBooksContainer.insertAdjacentHTML('beforeend', createBookCard(book));
-        });
+        for (const book of initialBooks) {
+            const bookCard = await createBookCard(book);
+            allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+        }
     }
 }
 
 async function loadMoreBooks() {
-  try {
-    const moreBooks = await fetchRandomBooks(booksPerPage);
-    const allBooksContainer = document.getElementById('all-books');
+    try {
+        const moreBooks = await fetchRandomBooks(booksPerPage);
+        const allBooksContainer = document.getElementById('all-books');
 
-    if (moreBooks.length === 0) {
-      // No more books to load, disable the button
-      document.getElementById('load-more').disabled = true;
-      return;
+        if (moreBooks.length === 0) {
+            document.getElementById('load-more').disabled = true;
+            return;
+        }
+
+        for (const book of moreBooks) {
+            const bookCard = await createBookCard(book);
+            allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+        }
+
+        currentPage++;
+    } catch (error) {
+        console.error('Error loading more books:', error);
+        alert('An error occurred while loading more books.');
     }
-
-    moreBooks.forEach(book => {
-      allBooksContainer.insertAdjacentHTML('beforeend', createBookCard(book));
-    });
-
-    currentPage++;
-  } catch (error) {
-    console.error('Error loading more books:', error);
-    alert('An error occurred while loading more books.');
-  }
 }
 
 document.getElementById('load-more').addEventListener('click', async () => {

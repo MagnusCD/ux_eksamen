@@ -1,3 +1,4 @@
+// book.details.js
 function checkLoginStatus() {
     return localStorage.getItem('userId') !== null;
 }

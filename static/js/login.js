@@ -1,3 +1,4 @@
+// login.js
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -15,7 +16,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
         if (response.ok) {
             localStorage.setItem('userId', data.user_id);
-            window.location.href = '/dashboard.htm';
+            window.location.href = '/';
         } else {
             alert(data.error || 'Invalid credentials');
         }

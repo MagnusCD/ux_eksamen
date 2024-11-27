@@ -1,21 +1,65 @@
-function initializeBurgerMenu() {
+// Check authentication status
+function checkAuth() {
+    const userId = localStorage.getItem('userId');
+    return userId !== null;
+}
+
+// Navigation initialization
+function initializeNavigation() {
+    const navGuest = document.getElementById('nav-guest-menu');
+    const navAuthenticated = document.getElementById('nav-authenticated-menu');
     const burgerMenu = document.querySelector('.burger-menu');
-    const nav = document.querySelector('.nav-right');
-    
-    if (burgerMenu && nav) {
-        burgerMenu.addEventListener('click', () => {
-            nav.classList.toggle('active');
+    const navRight = document.querySelector('.nav-right');
+
+    // Set initial menu visibility based on auth status
+    if (checkAuth()) {
+        navGuest.style.display = 'none';
+        navAuthenticated.style.display = 'flex';
+    } else {
+        navGuest.style.display = 'flex';
+        navAuthenticated.style.display = 'none';
+    }
+
+    // Burger menu click handler
+    if (burgerMenu && navRight) {
+        burgerMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            burgerMenu.classList.toggle('active');
             
-            const spans = burgerMenu.querySelectorAll('span');
-            spans.forEach(span => span.classList.toggle('active'));
+            // Toggle active class on both nav menus
+            document.querySelectorAll('.nav-right').forEach(nav => {
+                if (nav.style.display !== 'none') {
+                    nav.classList.toggle('active');
+                }
+            });
         });
 
+        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!nav.contains(e.target) && !burgerMenu.contains(e.target)) {
-                nav.classList.remove('active');
+            const navMenus = document.querySelectorAll('.nav-right');
+            if (!navMenus[0].contains(e.target) && 
+                !navMenus[1].contains(e.target) && 
+                !burgerMenu.contains(e.target)) {
+                burgerMenu.classList.remove('active');
+                navMenus.forEach(nav => nav.classList.remove('active'));
             }
         });
     }
+
+    // Logout handler
+    const logoutButton = document.querySelector('button[onclick="logoutUser()"]');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', logoutUser);
+    }
 }
 
-document.addEventListener('DOMContentLoaded', initializeBurgerMenu);
+// Logout function
+function logoutUser() {
+    localStorage.removeItem('userId');
+    window.location.href = '/';
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeNavigation();
+});

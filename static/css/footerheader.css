@@ -1,97 +1,156 @@
+/* Header Section */
+header {
+    background-color: var(--background-col);
+    padding: 1rem 2rem; /* Tilføjet padding til header */
+}
+
 .logo img {
     width: 250px;
     height: 80px;
 }
-    
-    header {
-        background-color: var(--background-col);
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 1rem;
+}
+
+/* Navigation */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-link {
+    color: var(--tertiary-col);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-body);
+}
+
+.nav-link:hover {
+    color: var(--primary-col);
+}
+
+/* Buttons */
+.button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: opacity 0.2s;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.button-primary {
+    background-color: var(--primary-col);
+    color: white;
+}
+
+.button-dark {
+    background-color: var(--tertiary-col);
+    color: white;
+}
+
+/* Search Section */
+.search-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 2rem;
+    padding: 0.5rem 1.5rem;
+    margin-top: 1rem;
+    border: 1px solid black;
+}
+
+.search-icon {
+    color: var(--tertiary-col);
+    margin-right: 0.5rem;
+}
+
+input[type="search"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    font-family: var(--font-body);
+    background: transparent;
+}
+
+/* Footer Section */
+footer {
+    background-color: var(--secondary-col);
+    color: white;
+    padding: 2rem;
+    margin: -10px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.social-icon {
+    color: white;
+    font-size: 1.5rem;
+    transition: opacity 0.2s ease;
+}
+
+.social-icon:hover {
+    opacity: 0.8;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
     }
 
-    .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding-bottom: 1rem;
-    }
-
-    .search-section {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .search-bar {
-        display: flex;
-        align-items: center;
-        background: white;
-        border-radius: 2rem;
-        padding: 0.5rem 1.5rem;
-        margin-top: 1rem;
-        border: 1px solid black;
-    }
-
-    .search-icon {
-        color: var(--tertiary-col);
-        margin-right: 0.5rem;
-    }
-
-    input[type="search"] {
-        flex: 1;
-        border: none;
-        outline: none;
-        padding: 0.5rem;
-        font-family: var(--font-body);
-        background: transparent;
-    }
-
-    .button {
-        padding: 0.75rem 1.5rem;
-        border-radius: 2rem;
-        border: none;
-        cursor: pointer;
-        font-family: var(--font-body);
-        transition: opacity 0.2s;
-    }
-
-    .button:hover {
-        opacity: 0.9;
-    }
-
-    .button-primary {
-        background-color: var(--primary-col);
-        color: white;
-    }
-
-    .button-dark {
-        background-color: var(--tertiary-col);
-        color: white;
-    }
-
-    .nav-link {
-        color: var(--tertiary-col);
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        font-family: var(--font-body);
-    }
-    
-    .nav-link:hover {
-        color: var(--primary-col);
-    }
-    
-    .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    @media (max-width: 768px) {        
-        .nav-right {
-            display: none; /* Skjules i mobil og vises i burger menu */
+    @media (max-width: 768px) {
+        #nav-guest-menu,
+        #nav-authenticated-menu {
+            display: none !important; /* Override inline styles */
         }
-        
-        .nav-right.active {
-            display: flex;
+    
+        #nav-guest-menu.active,
+        #nav-authenticated-menu.active {
+            display: flex !important;
             flex-direction: column;
             position: fixed;
             top: 0;
@@ -104,70 +163,4 @@
             z-index: 5;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-    footer {
-        background-color: var(--secondary-col);
-        color: white;
-        padding: 2rem;
-        margin: -10px;
-        margin-top: 50px;
-    }
-    
-    .footer-content {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        max-width: 1200px;  /* Matcher header max-width */
-        margin: 0 auto;     /* Centrerer indholdet */
-        text-align: center; /* Centrerer teksten */
-    }
-    
-    .footer-section {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center; /* Centrerer indholdet vertikalt */
-    }
-    
-    .social-icons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center; /* Centrerer sociale ikoner */
-    }
-    
-    .footer-bottom {
-        text-align: center;
-        margin-top: 2rem;
-    }
-
-    .social-icons {
-        display: flex;
-        gap: 1rem;
-    }
-    
-    .social-icon {
-        color: white;
-        font-size: 1.5rem; /* Adjust size as needed */
-        transition: opacity 0.2s ease;
-    }
-    
-    .social-icon:hover {
-        opacity: 0.8;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-        .footer-content {
-            grid-template-columns: 1fr;
-        }
-    }
+}

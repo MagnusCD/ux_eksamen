@@ -1,3 +1,4 @@
+<!--index.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,36 +10,41 @@
     <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
     <link rel="stylesheet" href="static/css/index.css">
-    <script defer src="static/js/navigation.js"></script>
     <script defer src="static/js/books.js"></script>
+    <script defer src="static/js/navigation.js"></script>
+  
 </head>
 
 <body>
     <header>
         <button class="burger-menu" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-
+      
         <div class="header-content">
             <a href="/" class="logo">
-                <img src="static/images/logo.svg" alt="PageFlow Logo">
+              <img src="static/images/logo.svg" alt="PageFlow Logo">
             </a>
-            <div class="nav-right">
-                <a href="/signup.htm" class="button button-primary">Sign up for free</a>
-                <a href="/login.htm" class="button button-dark">Log in</a>
+            <div class="nav-right" id="nav-guest-menu">
+              <a href="/signup.htm" class="button button-primary">Sign up for free</a>
+              <a href="/login.htm" class="button button-dark">Log in</a>
             </div>
-        </div>  
+            <div class="nav-right" id="nav-authenticated-menu" style="display: none;">
+              <a href="/profile.htm" class="nav-link">My Profile</a>
+              <a href="/favorites.htm" class="nav-link">Favorites</a>
+              <button class="button button-dark" onclick="logoutUser()">Log out</button>
+            </div>
+          </div>
+        </header>
 
-        <div class="search-section">
-            <div class="search-bar">
-                <input type="search" id="search-input" placeholder="Search" />
-                <button id="search-button" class="search-icon">🔍</button>
-            </div>
+      <div class="search-section">
+        <div class="search-bar">
+            <input type="search" id="search-input" placeholder="Search" />
+            <button id="search-button" class="search-icon">🔍</button>
         </div>
-    </header>
-
+    </div>
 
     <main>
         <section class="books-section">

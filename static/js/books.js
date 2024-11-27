@@ -1,3 +1,4 @@
+// books.js
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -67,15 +68,35 @@ async function displayBooks(books) {
 }
 
 async function loadMoreBooks() {
-    const moreBooks = await fetchRandomBooks(booksPerPage);
-    const allBooksContainer = document.getElementById('all-books');
-    
-    moreBooks.forEach(book => {
+    try {
+      const moreBooks = await fetchRandomBooks(booksPerPage);
+      const allBooksContainer = document.getElementById('all-books');
+  
+      if (moreBooks.length === 0) {
+        // No more books to load, disable the button
+        document.getElementById('load-more').disabled = true;
+        return;
+      }
+  
+      moreBooks.forEach(book => {
         allBooksContainer.insertAdjacentHTML('beforeend', createBookCard(book));
-    });
-
-    currentPage++;
-}
+      });
+  
+      currentPage++;
+    } catch (error) {
+      console.error('Error loading more books:', error);
+      alert('An error occurred while loading more books.');
+    }
+  }
+  
+  document.getElementById('load-more').addEventListener('click', async () => {
+    document.getElementById('load-more').disabled = true;
+    try {
+      await loadMoreBooks();
+    } finally {
+      document.getElementById('load-more').disabled = false;
+    }
+  });
 
 document.addEventListener('DOMContentLoaded', async () => {
     await displayBooks();
@@ -83,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
 
-    // Live search med debounce
+    
     const performSearch = debounce(async (value) => {
         if (value === '') {
             const initialBooks = await fetchRandomBooks(10);
@@ -98,7 +119,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         performSearch(e.target.value.trim());
     });
 
-    // Vi kan fjerne de andre søge-handlers da input eventet nu håndterer alt
-    // Men behold load more handler
     document.getElementById('load-more').addEventListener('click', loadMoreBooks);
 });

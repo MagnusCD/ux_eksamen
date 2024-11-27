@@ -1,37 +1,35 @@
-label {
-    margin-top: 10px;
-}
-
-.form-container button {
-    margin-top: 25px;
-}
-
+/* signup-login.css */
 .form-container {
     display: flex;
     width: 100%;
     padding: 2rem;
     gap: 4rem;
+    box-sizing: border-box; /* Sikrer at padding ikke øger bredden */
 }
 
 .form-section {
     flex: 1;
     max-width: 600px;
+    width: 100%; /* Tilføjet for bedre responsivitet */
     background: white;
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
+    box-sizing: border-box; /* Sikrer at padding ikke øger bredden */
 }
 
 .form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    width: 100%; /* Sikrer fuld bredde */
 }
 
 .form-row {
     display: flex;
     gap: 1rem;
+    width: 100%; /* Sikrer fuld bredde */
 }
 
 .form-group {
@@ -39,18 +37,25 @@ label {
     flex-direction: column;
     gap: 0.5rem;
     flex: 1;
+    width: 100%; /* Sikrer fuld bredde */
+}
+
+.form-group label {
+    color: var(--tertiary-col);
+    font-family: var(--font-body);
+    margin-top: 10px;
 }
 
 .form-group input {
-    padding: 1rem;
-    border-radius: 0.75rem;  /* Lidt mere runding som i designet */
+    padding: 0.75rem;
+    border-radius: 0.5rem;
     border: 1px solid #ddd;
     font-family: var(--font-body);
-    background-color: white;  /* Eksplicit hvid baggrund */
-    color: var(--tertiary-col);  /* Mørk tekst */
-    font-size: 1rem;
     width: 100%;
     box-sizing: border-box;
+    background-color: white;
+    color: var(--tertiary-col);
+    font-size: 1rem;
 }
 
 .form-group input:focus {
@@ -59,30 +64,46 @@ label {
     box-shadow: 0 0 0 1px var(--tertiary-col);
 }
 
-.form-group label {
-    color: var(--tertiary-col);
-    font-family: var(--font-body);
+.form-container button {
+    margin-top: 25px;
+    width: auto; /* Tillader knappen at tilpasse sig indholdet */
 }
 
-.form-group input {
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    border: 1px solid #ddd;
-    font-family: var(--font-body);
-}
-
+/* Responsive styles */
 @media (max-width: 768px) {
-    .signup-container {
-        flex-direction: column;
+    .form-container {
         padding: 1rem;
-        gap: 2rem;
+        gap: 1rem;
     }
 
     .form-section {
-        padding: 2rem;
+        padding: 1.5rem;
     }
 
     .form-row {
         flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 0.5rem;
+    }
+
+    .form-section {
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .form-group input {
+        padding: 0.5rem;
+        font-size: 16px; /* Forebygger zoom på iOS */
+    }
+
+    /* Fjern unødvendig margin/padding på små skærme */
+    .form {
+        gap: 1rem;
     }
 }

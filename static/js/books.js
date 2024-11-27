@@ -68,35 +68,35 @@ async function displayBooks(books) {
 }
 
 async function loadMoreBooks() {
-    try {
-      const moreBooks = await fetchRandomBooks(booksPerPage);
-      const allBooksContainer = document.getElementById('all-books');
-  
-      if (moreBooks.length === 0) {
-        // No more books to load, disable the button
-        document.getElementById('load-more').disabled = true;
-        return;
-      }
-  
-      moreBooks.forEach(book => {
-        allBooksContainer.insertAdjacentHTML('beforeend', createBookCard(book));
-      });
-  
-      currentPage++;
-    } catch (error) {
-      console.error('Error loading more books:', error);
-      alert('An error occurred while loading more books.');
+  try {
+    const moreBooks = await fetchRandomBooks(booksPerPage);
+    const allBooksContainer = document.getElementById('all-books');
+
+    if (moreBooks.length === 0) {
+      // No more books to load, disable the button
+      document.getElementById('load-more').disabled = true;
+      return;
     }
+
+    moreBooks.forEach(book => {
+      allBooksContainer.insertAdjacentHTML('beforeend', createBookCard(book));
+    });
+
+    currentPage++;
+  } catch (error) {
+    console.error('Error loading more books:', error);
+    alert('An error occurred while loading more books.');
   }
-  
-  document.getElementById('load-more').addEventListener('click', async () => {
-    document.getElementById('load-more').disabled = true;
-    try {
-      await loadMoreBooks();
-    } finally {
-      document.getElementById('load-more').disabled = false;
-    }
-  });
+}
+
+document.getElementById('load-more').addEventListener('click', async () => {
+  document.getElementById('load-more').disabled = true;
+  try {
+    await loadMoreBooks();
+  } finally {
+    document.getElementById('load-more').disabled = false;
+  }
+});
 
 document.addEventListener('DOMContentLoaded', async () => {
     await displayBooks();

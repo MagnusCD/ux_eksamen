@@ -14,8 +14,8 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
         const data = await response.json();
 
         if (response.ok) {
-            console.log('Logged in with user ID:', data.user_id);
-            window.location.href = '/';
+            localStorage.setItem('userId', data.user_id);
+            window.location.href = '/dashboard.htm';
         } else {
             alert(data.error || 'Invalid credentials');
         }

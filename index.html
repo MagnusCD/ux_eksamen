@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PageFlow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
@@ -11,9 +12,9 @@
     <script defer src="static/js/navigation.js"></script>
     <script defer src="static/js/books.js"></script>
 </head>
+
 <body>
     <header>
-
         <button class="burger-menu" aria-label="Toggle menu">
             <span></span>
             <span></span>
@@ -25,56 +26,58 @@
                 <img src="static/images/logo.svg" alt="PageFlow Logo">
             </a>
             <div class="nav-right">
-                <button class="button button-primary">Sign up for free</button>
-                <button class="button button-dark">Log in</button>
+                <a href="/signup.htm" class="button button-primary">Sign up for free</a>
+                <a href="/login.htm" class="button button-dark">Log in</a>
             </div>
         </div>  
 
         <div class="search-section">
             <div class="search-bar">
-                <input type="search" placeholder="Search" />
-                <span class="search-icon">🔍</span>
+                <input type="search" id="search-input" placeholder="Search" />
+                <button id="search-button" class="search-icon">🔍</button>
             </div>
-        </div>  
-
+        </div>
     </header>
 
-  
 
     <main>
         <section class="books-section">
             <div class="books-header">
                 <h1>Explore</h1>
-                <button class="button button-primary">See more books</button>
             </div>
             <div id="all-books" class="books-grid">
+            </div>
+            <div class="load-more">
+                <button id="load-more" class="button button-primary">See more books</button>
+            </div>
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>E-book logo</h3>
+                <h3>Contact</h3>
                 <p>Tel: +45 11 22 33 44</p>
-                <p>E-mail: books@mail.com</p>
-                <p>Opening hours:</p>
-                <p>Mon - fri: 10am - 5pm</p>
-                <p>Sat - sun: 10am - 3pm</p>
-                <p>Address:</p>
-                <p>Somestreet 12</p>
-                <p>2222 Sometown</p>
+                <p>E-mail: pageflow@mail.com</p>
             </div>
             <div class="footer-section">
-                <h3>Help and information</h3>
-                <a href="#">About us</a>
-                <a href="#">FAQ</a>
+                <h3>Opening Hours</h3>
+                <p>Mon - fri: 10am - 5pm</p>
+                <p>Sat - sun: 10am - 3pm</p>
             </div>
             <div class="footer-section">
                 <h3>Keep me posted</h3>
                 <div class="social-icons">
-                    <a href="#" class="social-icon">TikTok</a>
-                    <a href="#" class="social-icon">Insta</a>
-                    <a href="#" class="social-icon">Fb</a>
+                    <a href="#" class="social-icon">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
                 </div>
             </div>
         </div>

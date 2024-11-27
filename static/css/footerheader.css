@@ -68,6 +68,23 @@
         color: white;
     }
 
+    .nav-link {
+        color: var(--tertiary-col);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        font-family: var(--font-body);
+    }
+    
+    .nav-link:hover {
+        color: var(--primary-col);
+    }
+    
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
     @media (max-width: 768px) {        
         .nav-right {
             display: none; /* Skjules i mobil og vises i burger menu */
@@ -131,6 +148,21 @@
     .footer-bottom {
         text-align: center;
         margin-top: 2rem;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .social-icon {
+        color: white;
+        font-size: 1.5rem; /* Adjust size as needed */
+        transition: opacity 0.2s ease;
+    }
+    
+    .social-icon:hover {
+        opacity: 0.8;
     }
     
     /* Responsive */

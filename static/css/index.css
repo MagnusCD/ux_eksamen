@@ -1,9 +1,3 @@
-body {
-    background-color: var(--background-col);
-    font-family: var(--font-body);
-    color: var(--tertiary-col);
-}
-
 main {
     margin: 0 auto;
     max-width: 1200px;
@@ -31,6 +25,7 @@ main {
     border-radius: var(--card-border-radius);
     padding: 1rem;
     position: relative;
+    cursor: pointer;
 }
 
 .book-card img {

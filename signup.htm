@@ -4,24 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - PageFlow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/css/general.css">
+    <link rel="stylesheet" href="static/css/burgermenu.css">
+    <link rel="stylesheet" href="static/css/footerheader.css">
     <link rel="stylesheet" href="static/css/signup-login.css">
     <script defer src="static/js/signup.js"></script>
 </head>
+
 <body>
     <header>
-        <!-- Header vil blive tilføjet senere -->
-    </header>
-    <main class="signup-container">
-        <div class="logo-section">
+        <button class="burger-menu" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="header-content">
             <a href="/" class="logo">
-                <img src="static/images/logo.svg" alt="PageFlow Logo" style="width: 400px;">
+                <img src="static/images/logo.svg" alt="PageFlow Logo">
             </a>
-        </div>
+            <div class="nav-right">
+                <a href="/login.htm" class="button button-dark">Log in</a>
+            </div>
+        </div>  
+    </header>
+
+
+    <main class="form-container">
 
         <div class="form-section">
             <h1>Sign up</h1>
-            <form id="signup-form" class="signup-form">
+            <form id="signup-form">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="first_name">First name</label>
@@ -46,7 +60,6 @@
                            title="Must be at least 8 characters with 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character">
                 </div>
             
-                <!-- Tilføj de manglende påkrævede felter -->
                 <div class="form-group">
                     <label for="address">Address</label>
                     <input type="text" id="address" name="address" required>
@@ -68,7 +81,36 @@
     </main>
 
     <footer>
-        <!-- Footer vil blive tilføjet senere -->
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Tel: +45 11 22 33 44</p>
+                <p>E-mail: pageflow@mail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Opening Hours</h3>
+                <p>Mon - fri: 10am - 5pm</p>
+                <p>Sat - sun: 10am - 3pm</p>
+            </div>
+            <div class="footer-section">
+                <h3>Keep me posted</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KEA Production</p>
+        </div>
     </footer>
 </body>
 </html>

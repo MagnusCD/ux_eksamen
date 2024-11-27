@@ -1,5 +1,11 @@
 @import '_variables.css';
 
+body {
+    background-color: var(--background-col);
+    font-family: var(--font-body);
+    color: var(--tertiary-col);
+}
+
 h1, h2, .logo, button.cta {
     font-family: var(--font-header);
 }
@@ -64,4 +70,10 @@ input:focus {
     background-color: transparent;
     border: 1px solid var(--tertiary-col);
     color: var(--tertiary-col);
+}
+
+.load-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }

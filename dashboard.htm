@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - PageFlow</title>
+    <title>Dashboard - PageFlow</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
-    <link rel="stylesheet" href="static/css/signup-login.css">
-    <script defer src="static/js/login.js"></script>
+    <link rel="stylesheet" href="static/css/index.css">
+    <script defer src="static/js/navigation.js"></script>
+    <script defer src="static/js/auth.js"></script>
+    <script defer src="static/js/books.js"></script>
 </head>
 
 <body>
@@ -21,32 +23,35 @@
         </button>
 
         <div class="header-content">
-            <a href="/" class="logo">
+            <a href="/dashboard.htm" class="logo">
                 <img src="static/images/logo.svg" alt="PageFlow Logo">
             </a>
             <div class="nav-right">
-                <a href="/signup.htm" class="button button-primary">Sign up for free</a>            </div>
+                <a href="/profile.htm" class="nav-link">My Profile</a>
+                <a href="/favorites.htm" class="nav-link">Favorites</a>
+                <button class="button button-dark" onclick="logout()">Log out</button>
+            </div>
+        </div>  
+
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="search" placeholder="Search" />
+                <span class="search-icon">🔍</span>
+            </div>
         </div>  
     </header>
 
-    <main class="form-container">
-
-        <div class="form-section">
-            <h1>Sign in</h1>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-
-                <button type="submit" class="button button-dark">Sign in</button>
-            </form>
-        </div>
+    <main>
+        <section class="books-section">
+            <div class="books-header">
+                <h1>Explore</h1>
+            </div>
+            <div id="all-books" class="books-grid">
+            </div>
+            <div class="load-more">
+                <button id="load-more" class="button button-primary">See more books</button>
+            </div>
+        </section>
     </main>
 
     <footer>

@@ -7,6 +7,26 @@ body {
     color: var(--tertiary-col);
 }
 
+.back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.back-to-top:hover {
+    background-color: #555;
+}
+
 h1, h2, .logo, button.cta {
     font-family: var(--font-header);
 }

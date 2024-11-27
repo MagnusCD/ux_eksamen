@@ -4,6 +4,28 @@ header {
     padding: 1rem 2rem;
 }
 
+#admin-menu {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+#admin-menu .nav-link {
+    color: var(--tertiary-col);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+}
+
+#admin-menu .nav-link:hover {
+    color: var(--primary-col);
+}
+
+@media (max-width: 768px) {
+    #admin-menu {
+        flex-direction: column;
+        padding-top: 1rem;
+    }
+}
 
 .logo img {
     width: 270px;
@@ -87,6 +109,8 @@ header {
 .search-icon {
     color: var(--tertiary-col);
     margin-right: 0.5rem;
+    background-color: rgba(255, 255, 255, 0);
+    outline: none !important;
 }
 
 input[type="search"] {

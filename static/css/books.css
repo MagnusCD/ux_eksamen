@@ -28,7 +28,6 @@
 .book-card img {
     width: 100%;
     height: auto;
-    max-height: 250px;
     border-radius: calc(var(--card-border-radius) - 0.5rem);
 }
 

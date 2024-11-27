@@ -24,6 +24,7 @@ async function fetchRandomBooks(count = 10) {
         return [];
     }
 }
+
 async function fetchBookDetails(bookId) {
     try {
         const response = await fetch(`http://localhost:8080/books/${bookId}`);
@@ -33,6 +34,7 @@ async function fetchBookDetails(bookId) {
         return null;
     }
 }
+
 async function createBookCard(book) {
     // Fetch book details to get the cover
     const bookDetails = await fetchBookDetails(book.book_id);
@@ -117,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await displayBooks();
 
     const searchInput = document.getElementById('search-input');
-    const searchButton = document.getElementById('search-button');
+  
 
     
     const performSearch = debounce(async (value) => {

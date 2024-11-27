@@ -1,4 +1,3 @@
-// login.js
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -16,6 +15,9 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
         if (response.ok) {
             localStorage.setItem('userId', data.user_id);
+            if (document.getElementById('email').value === 'admin.library@mail.com') {
+                localStorage.setItem('userRole', 'admin');
+            }
             window.location.href = '/';
         } else {
             alert(data.error || 'Invalid credentials');

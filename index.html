@@ -25,19 +25,24 @@
       
         <div class="header-content">
             <a href="/" class="logo">
-              <img src="static/images/logo.svg" alt="PageFlow Logo">
+                <img src="static/images/logo.svg" alt="PageFlow Logo">
             </a>
             <div class="nav-right" id="nav-guest-menu">
-              <a href="/signup.htm" class="button button-primary">Sign up for free</a>
-              <a href="/login.htm" class="button button-dark">Log in</a>
+                <a href="/signup.htm" class="button button-primary">Sign up for free</a>
+                <a href="/login.htm" class="button button-dark">Log in</a>
             </div>
             <div class="nav-right" id="nav-authenticated-menu" style="display: none;">
-              <a href="/profile.htm" class="nav-link">My Profile</a>
-              <a href="/favorites.htm" class="nav-link">Favorites</a>
-              <button class="button button-dark" onclick="logoutUser()">Log out</button>
+                <a href="/profile.htm" class="nav-link">My Profile</a>
+                <a href="/favorites.htm" class="nav-link">Favorites</a>
+                <button class="button button-dark" onclick="logoutUser()">Log out</button>
+                <div id="admin-menu" style="display: none;">
+                    <a href="#" class="nav-link" onclick="showAddBookModal()">Add a new book</a>
+                    <a href="#" class="nav-link" onclick="showAddAuthorModal()">Add a new author</a>
+                    <a href="#" class="nav-link" onclick="showAddPublisherModal()">Add a new publisher</a>
+                </div>
             </div>
-          </div>
-        </header>
+        </div>
+     </header>
 
       <div class="search-section">
         <div class="search-bar">

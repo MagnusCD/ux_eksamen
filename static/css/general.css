@@ -50,6 +50,8 @@ input:focus {
 }
 
 .button-primary {
+    margin-left: 5px;
+    margin-right: 5px;
     background-color: var(--primary-col);
     color: white;
     padding: 0.5rem 1.5rem;

@@ -4,10 +4,16 @@ function checkAuth() {
     return userId !== null;
 }
 
+// Check if user is an admin
+function isAdmin() {
+    return localStorage.getItem('userRole') === 'admin';
+}
+
 // Navigation initialization
 function initializeNavigation() {
     const navGuest = document.getElementById('nav-guest-menu');
     const navAuthenticated = document.getElementById('nav-authenticated-menu');
+    const adminMenu = document.getElementById('admin-menu');
     const burgerMenu = document.querySelector('.burger-menu');
     const navRight = document.querySelector('.nav-right');
 
@@ -15,6 +21,11 @@ function initializeNavigation() {
     if (checkAuth()) {
         navGuest.style.display = 'none';
         navAuthenticated.style.display = 'flex';
+
+        // Show admin menu if user is an admin
+        if (isAdmin()) {
+            adminMenu.style.display = 'block';
+        }
     } else {
         navGuest.style.display = 'flex';
         navAuthenticated.style.display = 'none';
@@ -56,6 +67,7 @@ function initializeNavigation() {
 // Logout function
 function logoutUser() {
     localStorage.removeItem('userId');
+    localStorage.removeItem('userRole');
     window.location.href = '/';
 }
 
@@ -64,12 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeNavigation();
 });
 
-
+// Set active navigation link
 const currentPath = window.location.pathname;
 const navLinks = document.querySelectorAll('.nav-link');
-    
 navLinks.forEach(link => {
     if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
+        link.classList.add('active');
     }
 });

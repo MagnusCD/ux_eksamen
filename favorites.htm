@@ -3,43 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books by Author - PageFlow</title>
+    <title>Favorites - PageFlow</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
     <script defer src="static/js/navigation.js"></script>
-    <script defer src="static/js/author.js"></script>
+    <script defer src="static/js/favorites.js"></script>
 </head>
 
 <body>
     <header>
         <button class="burger-menu" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-
+      
         <div class="header-content">
             <a href="/" class="logo">
-              <img src="static/images/logo.svg" alt="PageFlow Logo">
+                <img src="static/images/logo.svg" alt="PageFlow Logo">
             </a>
             <div class="nav-right" id="nav-guest-menu">
-              <a href="/signup.htm" class="button button-primary">Sign up for free</a>
-              <a href="/login.htm" class="button button-dark">Log in</a>
+                <a href="/signup.htm" class="button button-primary">Sign up for free</a>
+                <a href="/login.htm" class="button button-dark">Log in</a>
             </div>
             <div class="nav-right" id="nav-authenticated-menu" style="display: none;">
-              <a href="/profile.htm" class="nav-link">My Profile</a>
-              <a href="/favorites.htm" class="nav-link">Favorites</a>
-              <button class="button button-dark" onclick="logoutUser()">Log out</button>
+                <a href="/profile.htm" class="nav-link">My Profile</a>
+                <a href="/favorites.htm" class="nav-link">Favorites</a>
+                <button class="button button-dark" onclick="logoutUser()">Log out</button>
+                <div id="admin-menu" style="display: none;">
+                    <a href="#" class="nav-link" onclick="showAddBookModal()">Add a new book</a>
+                    <a href="#" class="nav-link" onclick="showAddAuthorModal()">Add a new author</a>
+                    <a href="#" class="nav-link" onclick="showAddPublisherModal()">Add a new publisher</a>
+                </div>
             </div>
         </div>
-    </header>
+     </header>
 
     <main>
         <div class="book-list-container">
-            <h1 id="author-name"></h1>
-            <div id="book-list" class="book-list"></div>
+            <h1>My Favorites</h1>
+            <div id="favorites-container" class="book-list"></div>
         </div>
     </main>
 
@@ -67,6 +72,7 @@
                     <a href="#" class="social-icon">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
+                </div>
                 </div>
             </div>
         </div>

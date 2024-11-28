@@ -1,0 +1,112 @@
+<!-- admin.htm -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - PageFlow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="static/css/general.css">
+    <link rel="stylesheet" href="static/css/footerheader.css">
+    <link rel="stylesheet" href="static/css/admin.css">
+    <link rel="stylesheet" href="static/css/books.css">
+    <script defer src="static/js/navigation.js"></script>
+    <script defer src="static/js/admin.js"></script>
+    <script defer src="static/js/books.js"></script>
+</head>
+<body>
+    <header>     
+        <div class="header-content">
+            <a href="/" class="logo">
+                <img src="static/images/logo.svg" alt="PageFlow Logo">
+            </a>
+            <div class="nav-right" id="nav-guest-menu">
+                <a href="/signup.htm" class="button button-primary">Sign up for free</a>
+                <a href="/login.htm" class="button button-dark">Log in</a>
+            </div>
+            <div class="nav-right">
+                <button class="button button-dark" onclick="logoutUser()">Log out</button>
+        </div>
+     </header>  
+
+    <main class="admin-container">
+        <h1>Admin Panel</h1>
+        
+        <div class="admin-grid">
+            <!-- Authors Section -->
+            <section class="admin-section">
+                <h2>Add New Author</h2>
+                <div id="authorForm" class="admin-form">
+                    <form id="addAuthorForm">
+                        <input type="text" name="first_name" placeholder="First Name" required>
+                        <input type="text" name="last_name" placeholder="Last Name" required>
+                        <button type="submit" class="button button-primary">Add Author</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Publishers Section -->
+            <section class="admin-section">
+                <h2>Add New Publisher</h2>
+                <div id="publisherForm" class="admin-form">
+                    <form id="addPublisherForm">
+                        <input type="text" name="name" placeholder="Publisher Name" required>
+                        <button type="submit" class="button button-primary">Add Publisher</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Books Section -->
+            <section class="admin-section">
+                <h2>Add New Book</h2>
+                <div id="bookForm" class="admin-form">
+                    <form id="addBookForm">
+                        <input type="text" name="title" placeholder="Title" required>
+                        <select name="author_id" id="authorSelect" required>
+                            <option value="">Select Author</option>
+                        </select>
+                        <select name="publisher_id" id="publisherSelect" required>
+                            <option value="">Select Publisher</option>
+                        </select>
+                        <input type="number" name="publishing_year" placeholder="Publishing Year" required>
+                        <button type="submit" class="button button-primary">Add Book</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+
+
+
+
+     <div class="search-section" style="margin-top: 100px;">
+        <div class="search-bar">
+            <input type="search" id="search-input" placeholder="Search" />
+            <id="search-button" class="search-icon">🔍
+        </div>
+    </div>
+
+    <main>
+        <section class="books-section">
+            <div class="books-header">
+                <h1>Books</h1>
+            </div>
+            <div id="all-books" class="books-grid">
+            </div>
+            <div class="load-more">
+                <button id="load-more" class="button button-primary">See more books</button>
+            </div>
+        </section>
+    </main>
+
+    </main>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KEA Production</p>
+        </div>
+        <br>
+        <br>
+    </footer>
+</body>
+</html>

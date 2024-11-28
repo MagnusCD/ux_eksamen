@@ -72,12 +72,23 @@ async function displayBookDetails(book, bookId) {
     if (isAdmin) {
         const bookDetails = await fetchBookDetailsForAdmin(bookId);
         if (bookDetails) {
-            bookDetailsContainer.innerHTML += `
-                <div class="loan-history">
-                    <h2>Loan History</h2>
-                    <ul>${bookDetails.loans.map(loan => `<li>User ID: ${loan.user_id}, Loan Date: ${loan.loan_date}</li>`).join('')}</ul>
-                </div>
-            `;
+            let loanHistoryHTML = '';
+            if (bookDetails.loans.length > 0) {
+                loanHistoryHTML = `
+                    <div class="loan-history">
+                        <h2>Loan History</h2>
+                        <ul>${bookDetails.loans.map(loan => `<li>User ID: ${loan.user_id}, Loan Date: ${loan.loan_date}</li>`).join('')}</ul>
+                    </div>
+                `;
+            } else {
+                loanHistoryHTML = `
+                    <div class="loan-history">
+                        <h2>Loan History</h2>
+                        <p>No loans for this book.</p>
+                    </div>
+                `;
+            }
+            bookDetailsContainer.innerHTML += loanHistoryHTML;
         }
     }
 }

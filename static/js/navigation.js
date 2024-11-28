@@ -1,19 +1,12 @@
 // Check authentication status
 function checkAuth() {
-    const userId = localStorage.getItem('userId');
-    return userId !== null;
-}
-
-// Check if user is an admin
-function isAdmin() {
-    return localStorage.getItem('userRole') === 'admin';
+    return localStorage.getItem('userId') !== null;
 }
 
 // Navigation initialization
 function initializeNavigation() {
     const navGuest = document.getElementById('nav-guest-menu');
     const navAuthenticated = document.getElementById('nav-authenticated-menu');
-    const adminMenu = document.getElementById('admin-menu');
     const burgerMenu = document.querySelector('.burger-menu');
     const navRight = document.querySelector('.nav-right');
 
@@ -21,11 +14,6 @@ function initializeNavigation() {
     if (checkAuth()) {
         navGuest.style.display = 'none';
         navAuthenticated.style.display = 'flex';
-
-        // Show admin menu if user is an admin
-        if (isAdmin()) {
-            adminMenu.style.display = 'block';
-        }
     } else {
         navGuest.style.display = 'flex';
         navAuthenticated.style.display = 'none';
@@ -37,7 +25,6 @@ function initializeNavigation() {
             e.stopPropagation();
             burgerMenu.classList.toggle('active');
             
-            // Toggle active class on both nav menus
             document.querySelectorAll('.nav-right').forEach(nav => {
                 if (nav.style.display !== 'none') {
                     nav.classList.toggle('active');

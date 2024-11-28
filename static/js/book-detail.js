@@ -77,7 +77,7 @@ async function displayBookDetails(book, bookId) {
                 loanHistoryHTML = `
                     <div class="loan-history">
                         <h2>Loan History</h2>
-                        <ul>${bookDetails.loans.map(loan => `<li>User ID: ${loan.user_id}, Loan Date: ${loan.loan_date}</li>`).join('')}</ul>
+                        <ul>${bookDetails.loans.reverse().map(loan => `<li>User ID: ${loan.user_id}, Loan Date: ${loan.loan_date}</li>`).join('')}</ul>
                     </div>
                 `;
             } else {

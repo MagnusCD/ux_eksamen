@@ -18,6 +18,9 @@ async function fetchAuthors() {
         // Sort authors alphabetically
         authors.sort((a, b) => a.author_name.localeCompare(b.author_name));
         
+        // Clear existing options
+        select.innerHTML = '';
+        
         authors.forEach(author => {
             const option = document.createElement('option');
             option.value = author.author_id;
@@ -37,6 +40,9 @@ async function fetchPublishers() {
         
         // Sort publishers alphabetically
         publishers.sort((a, b) => a.publisher_name.localeCompare(b.publisher_name));
+        
+        // Clear existing options
+        select.innerHTML = '';
         
         publishers.forEach(publisher => {
             const option = document.createElement('option');
@@ -64,6 +70,8 @@ document.getElementById('addBookForm').addEventListener('submit', async (e) => {
         if (response.ok) {
             alert('Book added successfully!');
             e.target.reset();
+            await fetchAuthors(); // Update authors list
+            await fetchPublishers(); // Update publishers list
         } else {
             const data = await response.json();
             alert(data.error || 'Error adding book');
@@ -88,6 +96,7 @@ document.getElementById('addAuthorForm').addEventListener('submit', async (e) =>
         if (response.ok) {
             alert('Author added successfully!');
             e.target.reset();
+            await fetchAuthors(); // Update authors list
         } else {
             const data = await response.json();
             alert(data.error || 'Error adding author');
@@ -112,6 +121,7 @@ document.getElementById('addPublisherForm').addEventListener('submit', async (e)
         if (response.ok) {
             alert('Publisher added successfully!');
             e.target.reset();
+            await fetchPublishers(); // Update publishers list
         } else {
             const data = await response.json();
             alert(data.error || 'Error adding publisher');

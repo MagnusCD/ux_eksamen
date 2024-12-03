@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="static/css/books.css">
     <script defer src="static/js/books.js"></script>
     <script defer src="static/js/navigation.js"></script>
-    <script defer src="static/js/index.js"></script>
   
 </head>
 
@@ -33,24 +32,23 @@
                 <a href="/login.htm" class="button button-dark">Log in</a>
             </div>
             <div class="nav-right" id="nav-authenticated-menu" style="display: none;">
-                <a href="/profile.htm" class="nav-link">My Profile</a>
-                <a href="/favorites.htm" class="nav-link">Favorites</a>
-                <button class="button button-dark" onclick="logoutUser()">Log out</button>
+                <a href="/profile.htm" class="nav-link"><i class="fa-small fa-regular fa-user"></i> My Profile</a>
+            <button class="button button-dark" onclick="logoutUser()">Log out</button>
             </div>
         </div>
-     </header>
-
-      <div class="search-section">
-        <div class="search-bar">
-            <input type="search" id="search-input" placeholder="Search" />
-            <id="search-button" class="search-icon">🔍
-        </div>
-    </div>
+    </header>
 
     <main>
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="search" id="search-input" placeholder="Search" />
+                <id="search-button" class="search-icon">🔍
+            </div>
+        </div>
+        
         <section class="books-section">
             <div class="books-header">
-                <h1>Explore</h1>
+                <h1>Explore Books</h1>
             </div>
             <div id="all-books" class="books-grid">
             </div>

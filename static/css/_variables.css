@@ -3,31 +3,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
 :root {
+    /* Base font size */
+    font-size: 16px;
+
+    /* Colors */
     --primary-col: #e18985;  
     --secondary-col: #129aca; 
     --tertiary-col: #19242e;   
-    --background-col: #f5fbef; 
+    --plain-white-col: #ffffff;
+    --grey-col: #555;
+    --caution-red: #ff0000;
+        
+    /* Shadows */
+    --primary-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     
-    --search-background: #ffffff;
+    /* Background colors */
+    --background-col: #f5fbef; 
+    --input-background: #ffffff;
     --card-background: #ffffff;
     
-    --cta-border-radius: 2rem;     
+    /* Border radius */
+    --button-border-radius: 2rem;     
     --search-border-radius: 1.5rem; 
-    --card-border-radius: 1rem;   
+    --card-border-radius: 1rem;
+    --input-border-radius: 0.5rem;
 
+    /* Border Color */
+    --border-col: 1px solid #ddd;
+    
+    /* Typography */
     --font-header: "Merriweather", serif;
     --font-body: "Source Sans Pro", sans-serif;
-
-    --font-weight-header-mid: 400;
-    --font-weight-header-large: 400;
-    --font-weight-body-mid: 400;
-    --font-weight-body-small: 400;
-
-    --font-size-h1: 2.5rem;
+    
+    /* Font sizes */
     --font-size-h1: 2rem;
-    --font-size-h3: 1.5rem;
-    --font-size-nav: 1rem;
+    --font-size-h2: 1.5rem;
+    --font-size-h3: 1rem;
     --font-size-body: 0.875rem;
-    --font-size-footer: 0.875rem;
-    --font-size-button: 0.875rem;
+    --font-size-button: 1rem;
+           
+    /* Breakpoints */
+    --breakpoint-mobile: 768px;
+    --breakpoint-tablet: 1024px;
 }

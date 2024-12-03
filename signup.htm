@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
-    <link rel="stylesheet" href="static/css/signup-login.css">
+    <link rel="stylesheet" href="static/css/forms.css">
     <script defer src="static/js/signup.js"></script>
 </head>
 
@@ -26,9 +26,15 @@
     </header>
 
 
-    <main class="form-container">
+    <main>
+       
+        <div class="back-nav">
+            <a href="#" onclick="window.history.back(); return false;" class="back-button" aria-label="Go back">
+                <span>&#8592;</span> Back to Previous Page
+            </a>
+        </div>
 
-        <div class="form-section">
+        <section class="form-section">
             <h1>Sign up</h1>
             <form id="signup-form">
                 <div class="form-row">
@@ -70,9 +76,9 @@
                     <input type="date" id="birth_date" name="birth_date" required>
                 </div>
             
-                <button type="submit" class="button button-dark">Sign up</button>
+                <button type="submit" class="button button-primary">Sign up</button>
             </form>
-        </div>
+        </section>
     </main>
 
     <footer>

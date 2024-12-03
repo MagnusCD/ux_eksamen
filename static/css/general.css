@@ -2,110 +2,87 @@
 @import '_variables.css';
 
 main {
-    margin: 0 auto;
     max-width: 1250px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 body {
     background-color: var(--background-col);
     font-family: var(--font-body);
-    color: var(--tertiary-col);
 }
 
-.back-nav {
-    margin-left: 30px;
+h1 {
+    font-size: var(--font-size-h1);
 }
 
-.back-to-top {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 99;
-    font-size: 18px;
-    border: none;
-    outline: none;
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
+h2 {
+    font-size: var(--font-size-h2)
 }
 
-.back-to-top:hover {
-    background-color: #555;
+h3 {
+    font-size: var(--font-size-h3)
 }
 
-h1, h2, .logo, button.cta {
+h1, h2, h3, .logo {
     font-family: var(--font-header);
 }
 
-.logo {
-    color: var(--secondary-col);
-}
-
-p, input, label, a {
-    font-family: var(--font-body);
-    color: var(--cta-col);
-    text-decoration: none;
-}
-
-button.cta {
-    background-color: var(--cta-col);
-    color: var(--secondary-col);
-    border: none;
-    cursor: pointer;
-    border-radius: var(--cta-border-radius);
-}
-
-input {
-    border: 1px solid var(--tertiary-col);
-    border-radius: var(--cta-border-radius);
-    background-color: var(--tertiary-col);
-}
-
-input:focus {
-    outline: none;
-    box-shadow: 0rem 0rem 0.05rem 0.05rem var(--cta-col);
-
+.button, .nav-link {
+    font-size: var(--font-size-button);
 }
 
 .button {
     padding: 0.5rem 1.5rem;
-    border-radius: var(--cta-border-radius);
+    border-radius: var(--button-border-radius);
     border: none;
     cursor: pointer;
+    text-decoration: none;
     font-size: var(--font-size-button);
+    color: var(--background-col);
 }
 
 .button-primary {
-    margin-left: 5px;
-    margin-right: 5px;
     background-color: var(--primary-col);
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: var(--cta-border-radius);
-    border: none;
-    cursor: pointer;
 }
 
 .button-dark {
     background-color: var(--tertiary-col);
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: var(--cta-border-radius);
-    border: none;
-    cursor: pointer;
-}
-
-.button-outline {
-    background-color: transparent;
-    border: 1px solid var(--tertiary-col);
-    color: var(--tertiary-col);
 }
 
 .load-more {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
+}
+
+.back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 3rem;
+    right: 2rem;
+    font-size: var(--font-size-h1);
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: var(--tertiary-col);
+    color: var(--plain-white-col);
+    cursor: pointer;
+    border-radius: var(--button-border-radius);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.back-to-top:hover {
+    background-color: var(--grey-col);
+}
+
+.back-nav {
+    margin-bottom: 2rem;
+}
+
+.back-nav a {
+    text-decoration: none;
+    color: var(--tertiary-col)
 }

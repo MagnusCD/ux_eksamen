@@ -1,0 +1,59 @@
+/* signup-login.css */
+.form-section {
+    flex: 1;
+    max-width: 600px;
+    background: var(--card-background);
+    padding: 3rem;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--primary-shadow);
+    margin: 0 auto;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    width: 100%;
+}
+
+.form-group label {
+    color: var(--tertiary-col);
+    font-family: var(--font-body);
+    margin-top: 1rem;
+}
+
+.form-group input {
+    padding: 0.75rem;
+    border-radius: var(--input-border-radius);
+    border: var(--border-col);
+    font-family: var(--font-body);
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--tertiary-col);
+    font-size: var(--font-size-body);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--tertiary-col);
+    box-shadow: 0 0 0 0.1rem var(--tertiary-col);
+}
+
+.button-group .button:nth-child(2) {
+    margin-top: 2rem;
+    margin-left: 1rem;
+}

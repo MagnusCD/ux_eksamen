@@ -63,7 +63,7 @@ async function displayBookDetails(book, bookId) {
                 <div><strong>Published:</strong><p>${book.publishing_year}</p></div>
                 <div><strong>Publisher:</strong><p>${book.publishing_company}</p></div>
             </div>
-            <div class="button-group">${loanButton}${addToFavoritesButton}</div>
+            <div class="button-group">${loanButton}</div>
         </div>
     `;
 

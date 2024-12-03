@@ -32,8 +32,7 @@
               <a href="/login.htm" class="button button-dark">Log in</a>
             </div>
             <div class="nav-right" id="nav-authenticated-menu" style="display: none;">
-              <a href="/profile.htm" class="nav-link">My Profile</a>
-              <a href="/favorites.htm" class="nav-link">Favorites</a>
+                <a href="/profile.htm" class="nav-link"><i class="fa-small fa-regular fa-user"></i> My Profile</a>
               <button class="button button-dark" onclick="logoutUser()">Log out</button>
             </div>
           </div>
@@ -41,8 +40,8 @@
 
         <main>
             <div class="back-nav">
-                <a href="index.html" class="back-button" aria-label="Go back to book list">
-                    <span>&#8592;</span> Back to Books
+                <a href="#" onclick="window.history.back(); return false;" class="back-button" aria-label="Go back">
+                    <span>&#8592;</span> Back to Previous Page
                 </a>
             </div>
             <div class="book-container">

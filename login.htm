@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
-    <link rel="stylesheet" href="static/css/signup-login.css">
+    <link rel="stylesheet" href="static/css/forms.css">
     <script defer src="static/js/login.js"></script>
 </head>
 
@@ -20,11 +20,16 @@
                 <img src="static/images/logo.svg" alt="PageFlow Logo">
             </a>
             <div class="nav-right">
-                <a href="/signup.htm" class="button button-primary">Sign up for free</a>            </div>
+                <a href="/signup.htm" class="button button-dark">Sign up for free</a>            </div>
         </div>  
     </header>
 
-    <main class="form-container">
+    <main>
+        <div class="back-nav">
+            <a href="#" onclick="window.history.back(); return false;" class="back-button" aria-label="Go back">
+                <span>&#8592;</span> Back to Previous Page
+            </a>
+        </div>
 
         <div class="form-section">
             <h1>Sign in</h1>
@@ -39,7 +44,7 @@
                     <input type="password" id="password" name="password" required>
                 </div>
 
-                <button type="submit" class="button button-dark">Sign in</button>
+                <button type="submit" class="button button-primary">Login</button>
             </form>
         </div>
     </main>

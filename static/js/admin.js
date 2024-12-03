@@ -16,7 +16,7 @@ async function fetchAuthors() {
         
         authors.sort((a, b) => a.author_name.localeCompare(b.author_name));
         
-        select.innerHTML = '';
+        select.innerHTML = '<option value="">Select an author</option>'; // Default empty option
         
         authors.forEach(author => {
             const option = document.createElement('option');
@@ -37,7 +37,7 @@ async function fetchPublishers() {
         
         publishers.sort((a, b) => a.publisher_name.localeCompare(b.publisher_name));
         
-        select.innerHTML = '';
+        select.innerHTML = '<option value="">Select a publisher</option>'; // Default empty option
         
         publishers.forEach(publisher => {
             const option = document.createElement('option');

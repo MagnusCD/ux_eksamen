@@ -1,20 +1,12 @@
 /* books.css */
-
-.heart-icon.filled {
-    color: var(--primary-col);
-    font-size: 1.1rem;
-}
-
-.books-section {
-    padding: 2rem;
-}
-
 .books-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-top: 2rem;
+}
+
+.search-section {
     margin-bottom: 2rem;
 }
+
 
 .books-grid {
     display: grid;

@@ -8,32 +8,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
+    <link rel="stylesheet" href="static/css/burgermenu.css">
     <link rel="stylesheet" href="static/css/admin.css">
     <link rel="stylesheet" href="static/css/books.css">
     <script defer src="static/js/navigation.js"></script>
-    <script defer src="static/js/admin.js"></script>
     <script defer src="static/js/books.js"></script>
+    <script defer src="static/js/admin.js"></script>
 </head>
 <body>
     <header>     
+        <button class="burger-menu" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <div class="header-content">
-            <a href="/" class="logo">
+            <logo class="logo">
                 <img src="static/images/logo.svg" alt="PageFlow Logo">
-            </a>
+            </logo>
             <div class="nav-right" id="nav-guest-menu">
                 <a href="/signup.htm" class="button button-primary">Sign up for free</a>
                 <a href="/login.htm" class="button button-dark">Log in</a>
             </div>
-            <div class="nav-right">
-                <button class="button button-dark" onclick="logoutUser()">Log out</button>
+            <div class="nav-right" id="nav-authenticated-menu" style="display: none;">
+                <a href="/profile.htm" class="nav-link"><i class="fa-small fa-regular fa-user"></i> My Profile</a>                
+              <button class="button button-dark" onclick="logoutUser()">Log out</button>
+            </div>
         </div>
-     </header>  
+    </header>  
 
-    <main class="admin-container">
+    <main>
         <h1>Admin Panel</h1>
         
         <div class="admin-grid">
-            <!-- Authors Section -->
+        
             <section class="admin-section">
                 <h2>Add New Author</h2>
                 <div id="authorForm" class="admin-form">
@@ -45,7 +54,6 @@
                 </div>
             </section>
 
-            <!-- Publishers Section -->
             <section class="admin-section">
                 <h2>Add New Publisher</h2>
                 <div id="publisherForm" class="admin-form">
@@ -56,7 +64,7 @@
                 </div>
             </section>
 
-            <!-- Books Section -->
+
             <section class="admin-section">
                 <h2>Add New Book</h2>
                 <div id="bookForm" class="admin-form">
@@ -75,21 +83,15 @@
             </section>
         </div>
 
-
-
-
-
-     <div class="search-section" style="margin-top: 100px;">
-        <div class="search-bar">
-            <input type="search" id="search-input" placeholder="Search" />
-            <id="search-button" class="search-icon">🔍
-        </div>
-    </div>
-
-    <main>
         <section class="books-section">
             <div class="books-header">
                 <h1>Books</h1>
+            </div>
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="search" id="search-input" placeholder="Search" />
+                    <id="search-button" class="search-icon">🔍
+                </div>
             </div>
             <div id="all-books" class="books-grid">
             </div>
@@ -97,7 +99,6 @@
                 <button id="load-more" class="button button-primary">See more books</button>
             </div>
         </section>
-    </main>
 
     </main>
 

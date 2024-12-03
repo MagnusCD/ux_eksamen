@@ -3,6 +3,23 @@ function checkAuth() {
     return localStorage.getItem('userId') !== null;
 }
 
+const backToTopBtn = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTopBtn.style.display = 'block';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+});
+
+backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
 // Navigation initialization
 function initializeNavigation() {
     const navGuest = document.getElementById('nav-guest-menu');

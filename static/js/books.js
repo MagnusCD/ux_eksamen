@@ -64,7 +64,9 @@ async function searchBooks(searchTerm) {
     try {
         const response = await fetch(`http://localhost:8080/books?s=${searchTerm}`);
         const books = await response.json();
-        return books;
+        return books.filter(book => 
+            book.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
     } catch (error) {
         console.error('Error searching books:', error);
         return [];
@@ -75,16 +77,26 @@ async function displayBooks(books) {
     const allBooksContainer = document.getElementById('all-books');
     allBooksContainer.innerHTML = '';
 
+    // Track displayed book IDs to prevent duplicates
+    const displayedBookIds = new Set();
+
     if (Array.isArray(books)) {
         for (const book of books) {
-            const bookCard = await createBookCard(book);
-            allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+            // Only display the book if we haven't shown it yet
+            if (!displayedBookIds.has(book.book_id)) {
+                const bookCard = await createBookCard(book);
+                allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+                displayedBookIds.add(book.book_id);
+            }
         }
     } else {
         const initialBooks = await fetchRandomBooks(10);
         for (const book of initialBooks) {
-            const bookCard = await createBookCard(book);
-            allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+            if (!displayedBookIds.has(book.book_id)) {
+                const bookCard = await createBookCard(book);
+                allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+                displayedBookIds.add(book.book_id);
+            }
         }
     }
 }

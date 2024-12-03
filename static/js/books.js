@@ -1,4 +1,3 @@
-// books.js
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -9,38 +8,74 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
-}
-
-let currentPage = 1;
-const booksPerPage = 10;
-
-async function fetchRandomBooks(count = 10) {
+ }
+ 
+ let currentPage = 1;
+ const booksPerPage = 10;
+ const bookDetailsCache = new Map();
+ 
+ async function fetchWithRetry(url, maxRetries = 3, delay = 1000) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            if (i === maxRetries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+ }
+ 
+ async function fetchRandomBooks(count = 10) {
     try {
-        const response = await fetch(`http://localhost:8080/books?n=${count}`);
-        const books = await response.json();
-        return books;
+        const books = await fetchWithRetry(`http://localhost:8080/books?n=${count}`);
+        
+        const booksWithDetails = await Promise.all(
+            books.map(async (book) => {
+                try {
+                    if (bookDetailsCache.has(book.book_id)) {
+                        const cachedDetails = bookDetailsCache.get(book.book_id);
+                        return { ...book, cover: cachedDetails.cover && cachedDetails.cover.trim() !== '' ? cachedDetails.cover : 'static/images/placeholder-cover.png' };
+                    }
+ 
+                    const details = await fetchWithRetry(`http://localhost:8080/books/${book.book_id}`);
+                    if (details && details.cover && details.cover.trim() !== '') {
+                        console.log(`Successfully fetched cover for: ${book.title}`, {
+                            coverUrl: details.cover,
+                            fullDetails: details
+                        });
+                        bookDetailsCache.set(book.book_id, details);
+                        return { ...book, cover: details.cover };
+                    }
+                } catch (error) {
+                    console.error(`Failed to fetch details for book ${book.book_id}:`, error);
+                }
+                return { ...book, cover: 'static/images/placeholder-cover.png' };
+            })
+        );
+ 
+        return booksWithDetails;
     } catch (error) {
         console.error('Error fetching random books:', error);
         return [];
     }
-}
-
-async function fetchBookDetails(bookId) {
-    try {
-        const response = await fetch(`http://localhost:8080/books/${bookId}`);
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching book details:', error);
-        return null;
-    }
-}
-
-async function createBookCard(book) {
-    const bookDetails = await fetchBookDetails(book.book_id);
-    const coverUrl = bookDetails?.cover || '/static/images/placeholder-cover.png';
-
+ }
+ 
+ async function createBookCard(book) {
+    const coverUrl = (book.cover && book.cover.trim() !== '') 
+        ? book.cover 
+        : 'static/images/placeholder-cover.png';
+        
+    console.log(`Creating card for "${book.title}":`, {
+        providedCover: book.cover,
+        usingCoverUrl: coverUrl
+    });
+ 
     return `
         <article class="book-card" 
+             data-book-id="${book.book_id}"
              tabindex="0" 
              role="button"
              aria-label="View details for ${book.title} by ${book.author}"
@@ -50,38 +85,35 @@ async function createBookCard(book) {
                 <img 
                     src="${coverUrl}"
                     alt="Cover of ${book.title}"
-                    onerror="this.src='/static/images/placeholder-cover.png'"
+                    onerror="this.src='static/images/placeholder-cover.png'"
                 />
             </div>
             <h3>${book.title}</h3>
             <p>${book.author}</p>
         </article>
     `;
-}
-
-async function searchBooks(searchTerm) {
+ }
+ 
+ async function searchBooks(searchTerm) {
     try {
-        const response = await fetch(`http://localhost:8080/books?s=${searchTerm}`);
-        const books = await response.json();
-        return books.filter(book => 
+        const response = await fetchWithRetry(`http://localhost:8080/books?s=${searchTerm}`);
+        return response.filter(book => 
             book.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
     } catch (error) {
         console.error('Error searching books:', error);
         return [];
     }
-}
-
-async function displayBooks(books) {
+ }
+ 
+ async function displayBooks(books) {
     const allBooksContainer = document.getElementById('all-books');
     allBooksContainer.innerHTML = '';
-
-    // Track displayed book IDs to prevent duplicates
+ 
     const displayedBookIds = new Set();
-
+ 
     if (Array.isArray(books)) {
         for (const book of books) {
-            // Only display the book if we haven't shown it yet
             if (!displayedBookIds.has(book.book_id)) {
                 const bookCard = await createBookCard(book);
                 allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
@@ -98,45 +130,51 @@ async function displayBooks(books) {
             }
         }
     }
-}
-
-async function loadMoreBooks() {
+ }
+ 
+ async function loadMoreBooks() {
     try {
         const moreBooks = await fetchRandomBooks(booksPerPage);
         const allBooksContainer = document.getElementById('all-books');
-
+        
+        const displayedBookIds = new Set(
+            Array.from(allBooksContainer.querySelectorAll('.book-card'))
+                .map(card => Number(card.getAttribute('data-book-id')))
+        );
+ 
         if (moreBooks.length === 0) {
             document.getElementById('load-more').disabled = true;
             return;
         }
-
+ 
         for (const book of moreBooks) {
-            const bookCard = await createBookCard(book);
-            allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+            if (!displayedBookIds.has(book.book_id)) {
+                const bookCard = await createBookCard(book);
+                allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
+                displayedBookIds.add(book.book_id);
+            }
         }
-
+ 
         currentPage++;
     } catch (error) {
         console.error('Error loading more books:', error);
         alert('An error occurred while loading more books.');
     }
-}
-
-document.getElementById('load-more').addEventListener('click', async () => {
-  document.getElementById('load-more').disabled = true;
-  try {
-    await loadMoreBooks();
-  } finally {
-    document.getElementById('load-more').disabled = false;
-  }
-});
-
-document.addEventListener('DOMContentLoaded', async () => {
+ }
+ 
+ document.getElementById('load-more').addEventListener('click', async () => {
+    document.getElementById('load-more').disabled = true;
+    try {
+        await loadMoreBooks();
+    } finally {
+        document.getElementById('load-more').disabled = false;
+    }
+ });
+ 
+ document.addEventListener('DOMContentLoaded', async () => {
     await displayBooks();
-
+ 
     const searchInput = document.getElementById('search-input');
-  
-
     
     const performSearch = debounce(async (value) => {
         if (value === '') {
@@ -146,9 +184,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             const searchResults = await searchBooks(value);
             displayBooks(searchResults);
         }
-    }, 300); // 300ms delay
-
+    }, 300);
+ 
     searchInput.addEventListener('input', async (e) => {
         performSearch(e.target.value.trim());
     });
-});
+ });

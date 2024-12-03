@@ -7,10 +7,27 @@ function showLoginMessage() {
     alert('You must be logged in to use this feature.');
 }
 
+async function fetchWithRetry(url, maxRetries = 3, delay = 1000) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            if (i === maxRetries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+}
+
 async function fetchBookDetails(bookId) {
     try {
-        const response = await fetch(`http://localhost:8080/books/${bookId}`);
-        return await response.json();
+        const details = await fetchWithRetry(`http://localhost:8080/books/${bookId}`);
+        if (details && details.cover && details.cover.trim() !== '') {
+            return details;
+        }
+        return { ...details, cover: 'static/images/placeholder-cover.png' };
     } catch (error) {
         console.error('Error fetching book details:', error);
         return null;
@@ -19,8 +36,11 @@ async function fetchBookDetails(bookId) {
 
 async function fetchBookDetailsForAdmin(bookId) {
     try {
-        const response = await fetch(`http://localhost:8080/admin/books/${bookId}`);
-        return await response.json();
+        const details = await fetchWithRetry(`http://localhost:8080/admin/books/${bookId}`);
+        if (details && details.cover && details.cover.trim() !== '') {
+            return details;
+        }
+        return { ...details, cover: 'static/images/placeholder-cover.png' };
     } catch (error) {
         console.error('Error fetching book details:', error);
         return null;

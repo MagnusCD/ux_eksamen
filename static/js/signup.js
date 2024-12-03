@@ -15,7 +15,7 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
         if (response.ok) {
             console.log('User created with ID:', data.user_id);
             alert('Account created successfully!');
-            window.location.href = '/login.htm';
+            window.location.href = '/login.html';
         } else {
             alert(data.error || 'Error creating account');
         }

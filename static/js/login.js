@@ -20,7 +20,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
             // Check if admin
             if (document.getElementById('email').value === 'admin.library@mail.com') {
                 localStorage.setItem('userRole', 'admin');
-                window.location.href = '/admin.htm'; 
+                window.location.href = '/admin.html'; 
             } else {
                 window.location.href = '/'; 
             }

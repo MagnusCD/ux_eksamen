@@ -2,7 +2,7 @@
 function checkAuth() {
     const userId = localStorage.getItem('userId');
     if (!userId) {
-        window.location.href = '/login.htm';
+        window.location.href = '/login.html';
         return null;
     }
     return userId;

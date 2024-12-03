@@ -28,7 +28,7 @@ function displayAuthorBooks(books, authorName) {
     if (books.length > 0) {
         books.forEach(book => {
             bookList.insertAdjacentHTML('beforeend', `
-                <div class="book-card" onclick="window.location.href='/book.htm?id=${book.book_id}'">
+                <div class="book-card" onclick="window.location.href='/book.html?id=${book.book_id}'">
                     <div class="book-cover">
                         <img src="${book.cover || '/static/images/placeholder-cover.png'}"
                              alt="${book.title}"

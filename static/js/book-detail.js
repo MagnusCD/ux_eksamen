@@ -97,7 +97,7 @@ async function createAuthorLink(book) {
     authorElement.classList.add('author');
     authorElement.textContent = book.author;
     if (authorId) {
-        authorElement.href = `/author.htm?a=${authorId}`;
+        authorElement.href = `/author.html?a=${authorId}`;
         authorElement.addEventListener('click', (event) => {
             event.preventDefault();
             window.location.href = authorElement.href;

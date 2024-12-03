@@ -44,8 +44,8 @@ async function createBookCard(book) {
              tabindex="0" 
              role="button"
              aria-label="View details for ${book.title} by ${book.author}"
-             onclick="window.location.href='/book.htm?id=${book.book_id}'"
-             onkeydown="if(event.key === 'Enter') window.location.href='/book.htm?id=${book.book_id}'">
+             onclick="window.location.href='/book.html?id=${book.book_id}'"
+             onkeydown="if(event.key === 'Enter') window.location.href='/book.html?id=${book.book_id}'">
             <div class="book-cover">
                 <img 
                     src="${coverUrl}"

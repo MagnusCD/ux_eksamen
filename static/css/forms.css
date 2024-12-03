@@ -8,11 +8,20 @@
     margin-bottom: 4rem;
 }
 
+#signup-section {
+    margin: 0 auto;
+}
+
+#login-section {
+    margin: 0 auto;
+}
+
 .form-section {
     background: var(--card-background);
-    padding: 2rem;
+    padding: 3rem;
     border-radius: var(--card-border-radius);
     box-shadow: var(--primary-shadow);
+    max-width: 600px;
 }
 
 .form-section h2 {
@@ -26,6 +35,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    margin: 0 auto;
 }
 
 .form-row {

@@ -3,10 +3,10 @@
 /* Header Section */
 header {
     padding-top: 2rem;
-    max-width: 1200px;
     margin: 0 auto;
     padding-left: 4rem;
     padding-right: 4rem;
+    max-width: 1200px;  
 }
 
 .header-content {

@@ -2,10 +2,10 @@
 @import '_variables.css';
 
 main {
-    max-width: 1250px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
 }
 
 body {

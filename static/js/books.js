@@ -36,12 +36,11 @@ async function fetchBookDetails(bookId) {
 }
 
 async function createBookCard(book) {
-    // Fetch book details to get the cover
     const bookDetails = await fetchBookDetails(book.book_id);
     const coverUrl = bookDetails?.cover || '/static/images/placeholder-cover.png';
 
     return `
-        <div class="book-card" 
+        <article class="book-card" 
              tabindex="0" 
              role="button"
              aria-label="View details for ${book.title} by ${book.author}"
@@ -56,7 +55,7 @@ async function createBookCard(book) {
             </div>
             <h3>${book.title}</h3>
             <p>${book.author}</p>
-        </div>
+        </article>
     `;
 }
 

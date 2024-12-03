@@ -1,12 +1,7 @@
 /* books.css */
-.books-header {
-    margin-top: 2rem;
-}
-
 .search-section {
     margin-bottom: 2rem;
 }
-
 
 .books-grid {
     display: grid;

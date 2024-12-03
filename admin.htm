@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/footerheader.css">
     <link rel="stylesheet" href="static/css/burgermenu.css">
-    <link rel="stylesheet" href="static/css/admin.css">
+    <link rel="stylesheet" href="static/css/forms.css">
     <link rel="stylesheet" href="static/css/books.css">
     <script defer src="static/js/navigation.js"></script>
     <script defer src="static/js/books.js"></script>
     <script defer src="static/js/admin.js"></script>
 </head>
+
 <body>
     <header>     
         <button class="burger-menu" aria-label="Toggle menu">
@@ -23,7 +24,7 @@
             <span></span>
         </button>
 
-        <div class="header-content">
+        <section class="header-content">
             <logo class="logo">
                 <img src="static/images/logo.svg" alt="PageFlow Logo">
             </logo>
@@ -35,51 +36,74 @@
                 <a href="/profile.htm" class="nav-link"><i class="fa-small fa-regular fa-user"></i> My Profile</a>                
               <button class="button button-dark" onclick="logoutUser()">Log out</button>
             </div>
-        </div>
+        </section>
     </header>  
 
     <main>
         <h1>Admin Panel</h1>
         
         <div class="admin-grid">
-        
-            <section class="admin-section">
+            <section class="form-section">
                 <h2>Add New Author</h2>
-                <div id="authorForm" class="admin-form">
-                    <form id="addAuthorForm">
-                        <input type="text" name="first_name" placeholder="First Name" required>
-                        <input type="text" name="last_name" placeholder="Last Name" required>
+                <form id="addAuthorForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="author_first_name">First Name</label>
+                            <input type="text" id="author_first_name" name="first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="author_last_name">Last Name</label>
+                            <input type="text" id="author_last_name" name="last_name" required>
+                        </div>
+                    </div>
+                    <div class="button-group">
                         <button type="submit" class="button button-primary">Add Author</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </section>
-
-            <section class="admin-section">
+        
+            <section class="form-section">
                 <h2>Add New Publisher</h2>
-                <div id="publisherForm" class="admin-form">
-                    <form id="addPublisherForm">
-                        <input type="text" name="name" placeholder="Publisher Name" required>
+                <form id="addPublisherForm">
+                    <div class="form-group">
+                        <label for="publisher_name">Publisher Name</label>
+                        <input type="text" id="publisher_name" name="name" required>
+                    </div>
+                    <div class="button-group">
                         <button type="submit" class="button button-primary">Add Publisher</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </section>
-
-
-            <section class="admin-section">
+        
+            <section class="form-section">
                 <h2>Add New Book</h2>
-                <div id="bookForm" class="admin-form">
-                    <form id="addBookForm">
-                        <input type="text" name="title" placeholder="Title" required>
-                        <select name="author_id" id="authorSelect" required>
-                            <option value="">Select Author</option>
-                        </select>
-                        <select name="publisher_id" id="publisherSelect" required>
-                            <option value="">Select Publisher</option>
-                        </select>
-                        <input type="number" name="publishing_year" placeholder="Publishing Year" required>
+                <form id="addBookForm">
+                    <div class="form-group">
+                        <label for="book_title">Title</label>
+                        <input type="text" id="book_title" name="title" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="authorSelect">Author</label>
+                            <select name="author_id" id="authorSelect" required>
+                                <option value="">Select Author</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="publisherSelect">Publisher</label>
+                            <select name="publisher_id" id="publisherSelect" required>
+                                <option value="">Select Publisher</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="publishing_year">Publishing Year</label>
+                        <input type="number" id="publishing_year" name="publishing_year" required>
+                    </div>
+                    <div class="button-group">
                         <button type="submit" class="button button-primary">Add Book</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </section>
         </div>
 
@@ -94,20 +118,24 @@
                 </div>
             </div>
             <div id="all-books" class="books-grid">
+                
             </div>
             <div class="load-more">
                 <button id="load-more" class="button button-primary">See more books</button>
             </div>
         </section>
 
+        <button id="back-to-top" class="back-to-top" title="Back to Top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
     </main>
-
+    
     <footer>
-        <div class="footer-bottom">
-            <p>&copy; 2024 KEA Production</p>
-        </div>
-        <br>
-        <br>
+        <section class="footer-content">
+            <div class="footer-bottom">
+                <p>&copy; 2024 KEA Production</p>
+            </div>
+        </section>
     </footer>
 </body>
 </html>

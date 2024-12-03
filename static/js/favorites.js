@@ -1,4 +1,4 @@
-// Fetch book details for a specific book
+// favorites.js
 async function fetchBookDetails(bookId) {
     try {
         const response = await fetch(`http://localhost:8080/books/${bookId}`);
@@ -9,7 +9,6 @@ async function fetchBookDetails(bookId) {
     }
 }
 
-// Get user's favorites from localStorage and fetch their details
 async function getUserFavorites() {
     const favoriteIds = JSON.parse(localStorage.getItem('favorites') || '[]');
     const favorites = [];
@@ -24,7 +23,6 @@ async function getUserFavorites() {
     return favorites;
 }
 
-// Display favorite books
 async function displayFavorites() {
     if (!localStorage.getItem('userId')) {
         window.location.href = '/login.htm';
@@ -37,16 +35,17 @@ async function displayFavorites() {
     if (favoriteBooks.length === 0) {
         favoritesContainer.innerHTML = '<p>You have no favorite books yet.</p>';
     } else {
-        favoritesContainer.innerHTML = ''; // Clear container first
+        favoritesContainer.innerHTML = ''; 
         favoriteBooks.forEach(book => {
             const bookElement = document.createElement('div');
-            bookElement.classList.add('book-card'); // Brug samme klasse som på forsiden
+            bookElement.classList.add('book-card');
+            bookElement.setAttribute('data-book-id', book.book_id);
             bookElement.innerHTML = `
                 <div class="book-cover">
                     <img src="${book.cover || '/static/images/placeholder-cover.png'}"
                          alt="${book.title}"
                          onerror="this.src='/static/images/placeholder-cover.png'">
-                    <button class="heart-icon" onclick="removeFromFavorites(${book.book_id})">
+                    <button class="heart-icon filled" onclick="removeFromFavorites(${book.book_id})">
                         <i class="fa-solid fa-heart"></i>
                     </button>
                 </div>
@@ -58,17 +57,28 @@ async function displayFavorites() {
     }
 }
 
-// Remove a book from favorites
 async function removeFromFavorites(bookId) {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    const index = favorites.indexOf(bookId);
-    
-    if (index !== -1) {
-        favorites.splice(index, 1);
+    try {
+        // Get current favorites
+        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        
+        // Remove the book ID
+        const index = favorites.indexOf(bookId);
+        if (index > -1) {
+            favorites.splice(index, 1);
+        }
+        
+        // Save back to localStorage
         localStorage.setItem('favorites', JSON.stringify(favorites));
-        await displayFavorites(); // Refresh the display
+        
+        // Show alert and refresh
+        alert("Book removed from favorites!");
+        location.reload();
+        
+    } catch (error) {
+        console.error('Error removing from favorites:', error);
+        alert("Error removing book from favorites");
     }
 }
 
-// Initialize page
 document.addEventListener('DOMContentLoaded', displayFavorites);

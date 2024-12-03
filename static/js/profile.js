@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         displayUserProfile(userData);
     }
 
-    // Event listeners
     document.getElementById('profile-form').addEventListener('submit', handleProfileUpdate);
     document.getElementById('delete-account').addEventListener('click', handleDeleteAccount);
 });

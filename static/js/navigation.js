@@ -1,4 +1,4 @@
-// Check authentication status
+// navigation.js
 function checkAuth() {
     return localStorage.getItem('userId') !== null;
 }

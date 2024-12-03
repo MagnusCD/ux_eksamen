@@ -3,13 +3,17 @@
 
 main {
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 1250px;
 }
 
 body {
     background-color: var(--background-col);
     font-family: var(--font-body);
     color: var(--tertiary-col);
+}
+
+.back-nav {
+    margin-left: 30px;
 }
 
 .back-to-top {

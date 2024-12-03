@@ -1,3 +1,4 @@
+// index.js
 const backToTopBtn = document.getElementById('back-to-top');
 
 window.addEventListener('scroll', () => {

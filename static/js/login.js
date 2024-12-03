@@ -1,3 +1,4 @@
+// login.js
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -19,9 +20,9 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
             // Check if admin
             if (document.getElementById('email').value === 'admin.library@mail.com') {
                 localStorage.setItem('userRole', 'admin');
-                window.location.href = '/admin.htm'; // Redirect to admin panel
+                window.location.href = '/admin.htm'; 
             } else {
-                window.location.href = '/'; // Redirect to home for regular users
+                window.location.href = '/'; 
             }
         } else {
             alert(data.error || 'Invalid credentials');

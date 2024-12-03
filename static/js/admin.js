@@ -1,24 +1,21 @@
-// Check admin authentication
+// admin.js
 function checkAdminAuth() {
     const isAdmin = localStorage.getItem('userRole') === 'admin';
     if (!isAdmin) {
-        window.location.href = '/'; // Redirect to home if not admin
+        window.location.href = '/'; 
         return false;
     }
     return true;
 }
 
-// Fetch functions for populating select boxes
 async function fetchAuthors() {
     try {
         const response = await fetch('http://localhost:8080/authors');
         const authors = await response.json();
         const select = document.getElementById('authorSelect');
         
-        // Sort authors alphabetically
         authors.sort((a, b) => a.author_name.localeCompare(b.author_name));
         
-        // Clear existing options
         select.innerHTML = '';
         
         authors.forEach(author => {
@@ -38,10 +35,8 @@ async function fetchPublishers() {
         const publishers = await response.json();
         const select = document.getElementById('publisherSelect');
         
-        // Sort publishers alphabetically
         publishers.sort((a, b) => a.publisher_name.localeCompare(b.publisher_name));
         
-        // Clear existing options
         select.innerHTML = '';
         
         publishers.forEach(publisher => {
@@ -55,7 +50,6 @@ async function fetchPublishers() {
     }
 }
 
-// Form submit handlers
 document.getElementById('addBookForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!checkAdminAuth()) return;
@@ -70,8 +64,8 @@ document.getElementById('addBookForm').addEventListener('submit', async (e) => {
         if (response.ok) {
             alert('Book added successfully!');
             e.target.reset();
-            await fetchAuthors(); // Update authors list
-            await fetchPublishers(); // Update publishers list
+            await fetchAuthors();
+            await fetchPublishers();
         } else {
             const data = await response.json();
             alert(data.error || 'Error adding book');
@@ -96,7 +90,7 @@ document.getElementById('addAuthorForm').addEventListener('submit', async (e) =>
         if (response.ok) {
             alert('Author added successfully!');
             e.target.reset();
-            await fetchAuthors(); // Update authors list
+            await fetchAuthors();
         } else {
             const data = await response.json();
             alert(data.error || 'Error adding author');
@@ -121,7 +115,7 @@ document.getElementById('addPublisherForm').addEventListener('submit', async (e)
         if (response.ok) {
             alert('Publisher added successfully!');
             e.target.reset();
-            await fetchPublishers(); // Update publishers list
+            await fetchPublishers();
         } else {
             const data = await response.json();
             alert(data.error || 'Error adding publisher');
@@ -132,12 +126,9 @@ document.getElementById('addPublisherForm').addEventListener('submit', async (e)
     }
 });
 
-// Initialize page
 document.addEventListener('DOMContentLoaded', () => {
-    // Check admin status immediately
     if (!checkAdminAuth()) return;
     
-    // Only initialize if admin check passes
     fetchAuthors();
     fetchPublishers();
 });

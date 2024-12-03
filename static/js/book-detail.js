@@ -1,4 +1,4 @@
-// Utility functions
+// book-detail.js
 function checkLoginStatus() {
     return localStorage.getItem('userId') !== null;
 }
@@ -7,7 +7,6 @@ function showLoginMessage() {
     alert('You must be logged in to use this feature.');
 }
 
-// API fetch functions
 async function fetchBookDetails(bookId) {
     try {
         const response = await fetch(`http://localhost:8080/books/${bookId}`);
@@ -40,7 +39,6 @@ async function findAuthorId(authorName) {
     }
 }
 
-// Display functions
 async function displayBookDetails(book, bookId) {
     const isLoggedIn = checkLoginStatus();
     const isAdmin = localStorage.getItem('userRole') === 'admin';
@@ -108,7 +106,6 @@ async function createAuthorLink(book) {
     return authorElement;
 }
 
-// User actions
 async function loanBook(bookId) {
     if (!checkLoginStatus()) {
         showLoginMessage();
@@ -161,7 +158,6 @@ async function addToFavorites(bookId) {
     localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-// Page initialization
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('id');

@@ -41,11 +41,16 @@ async function createBookCard(book) {
     const coverUrl = bookDetails?.cover || '/static/images/placeholder-cover.png';
 
     return `
-        <div class="book-card" onclick="window.location.href='/book.htm?id=${book.book_id}'">
+        <div class="book-card" 
+             tabindex="0" 
+             role="button"
+             aria-label="View details for ${book.title} by ${book.author}"
+             onclick="window.location.href='/book.htm?id=${book.book_id}'"
+             onkeydown="if(event.key === 'Enter') window.location.href='/book.htm?id=${book.book_id}'">
             <div class="book-cover">
                 <img 
                     src="${coverUrl}"
-                    alt="${book.title}"
+                    alt="Cover of ${book.title}"
                     onerror="this.src='/static/images/placeholder-cover.png'"
                 />
             </div>
@@ -135,6 +140,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     searchInput.addEventListener('input', async (e) => {
         performSearch(e.target.value.trim());
     });
-
-    document.getElementById('load-more').addEventListener('click', loadMoreBooks);
 });

@@ -1,4 +1,10 @@
-/* index.css */
+/* books.css */
+
+.heart-icon.filled {
+    color: var(--primary-col);
+    font-size: 1.1rem;
+}
+
 .books-section {
     padding: 2rem;
 }

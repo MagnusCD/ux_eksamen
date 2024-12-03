@@ -12,7 +12,6 @@
     --tertiary-col: #19242e;   
     --plain-white-col: #ffffff;
     --grey-col: #555;
-    --caution-red: #ff0000;
         
     /* Shadows */
     --primary-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -38,7 +37,7 @@
     /* Font sizes */
     --font-size-h1: 2rem;
     --font-size-h2: 1.5rem;
-    --font-size-h3: 1rem;
+    --font-size-h3: 1.25rem;
     --font-size-body: 0.875rem;
     --font-size-button: 1rem;
 }

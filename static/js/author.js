@@ -1,4 +1,53 @@
 // author.js
+const bookDetailsCache = new Map();
+
+async function getBookCover(bookId) {
+    if (bookDetailsCache.has(bookId)) {
+        return bookDetailsCache.get(bookId).cover;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:8080/books/${bookId}`);
+        const bookDetails = await response.json();
+        bookDetailsCache.set(bookId, bookDetails);
+        return bookDetails.cover || '/static/images/placeholder-cover.png';
+    } catch (error) {
+        console.error(`Error fetching details for book ${bookId}:`, error);
+        return '/static/images/placeholder-cover.png';
+    }
+}
+
+async function displayAuthorBooks(books, authorName) {
+    document.getElementById('author-name').textContent = `Books by ${authorName}`;
+    const bookList = document.getElementById('book-list');
+
+    if (books.length > 0) {
+        bookList.innerHTML = '';
+
+        const bookCards = await Promise.all(
+            books.map(async (book) => {
+                const coverUrl = await getBookCover(book.book_id);
+                return `
+                    <div class="book-card" onclick="window.location.href='/book.html?id=${book.book_id}'">
+                        <div class="book-cover">
+                            <img src="${coverUrl}"
+                                 alt="${book.title}"
+                                 onerror="this.src='/static/images/placeholder-cover.png'"
+                            />
+                        </div>
+                        <h3>${book.title}</h3>
+                        <p>${book.author}</p>
+                    </div>
+                `;
+            })
+        );
+
+        bookList.innerHTML = bookCards.join('');
+    } else {
+        bookList.innerHTML = '<p>No books found for this author.</p>';
+    }
+}
+
 async function fetchAuthorById(authorId) {
     try {
         const response = await fetch(`http://localhost:8080/authors`);
@@ -21,30 +70,6 @@ async function fetchBooksByAuthor(authorId) {
     }
 }
 
-function displayAuthorBooks(books, authorName) {
-    document.getElementById('author-name').textContent = `Books by ${authorName}`;
-    const bookList = document.getElementById('book-list');
-    
-    if (books.length > 0) {
-        books.forEach(book => {
-            bookList.insertAdjacentHTML('beforeend', `
-                <div class="book-card" onclick="window.location.href='/book.html?id=${book.book_id}'">
-                    <div class="book-cover">
-                        <img src="${book.cover || '/static/images/placeholder-cover.png'}"
-                             alt="${book.title}"
-                             onerror="this.src='/static/images/placeholder-cover.png'"
-                        />
-                    </div>
-                    <h3>${book.title}</h3>
-                    <p>${book.author}</p>
-                </div>
-            `);
-        });
-    } else {
-        bookList.innerHTML = '<p>No books found for this author.</p>';
-    }
-}
-
 async function initializeAuthorPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const authorId = urlParams.get('a');
@@ -61,7 +86,7 @@ async function initializeAuthorPage() {
     }
 
     const books = await fetchBooksByAuthor(authorId);
-    displayAuthorBooks(books, author.author_name);
+    await displayAuthorBooks(books, author.author_name);
 }
 
 document.addEventListener('DOMContentLoaded', initializeAuthorPage);

@@ -25,6 +25,7 @@ header {
 /* Navigation */
 .nav-right {
     text-align: center; 
+    gap: 1rem;
 }
 
 .nav-link.active {

@@ -1,3 +1,4 @@
+// author.js
 const bookDetailsCache = new Map();
 
 async function getBookCover(bookId) {
@@ -12,7 +13,7 @@ async function getBookCover(bookId) {
         return bookDetails.cover || 'static/images/placeholder-cover.png';
     } catch (error) {
         console.error(`Error fetching details for book ${bookId}:`, error);
-        return '/static/images/placeholder-cover.png';
+        return 'static/images/placeholder-cover.png';
     }
 }
 
@@ -21,14 +22,14 @@ async function displayAuthorBooks(books, authorName) {
     const bookList = document.getElementById('book-list');
 
     // Vis skeleton loading
-    bookList.innerHTML = '<div class="book-card book-card-skeleton"></div>'.repeat(10);
+    bookList.innerHTML = '<div class="book-card book-card-skeleton"></div>'.repeat(5);
 
     if (books.length > 0) {
         const bookCards = await Promise.all(
             books.map(async (book) => {
                 const coverUrl = await getBookCover(book.book_id);
                 return `
-                    <div class="book-card" onclick="window.location.href='/book.html?id=${book.book_id}'">
+                    <div class="book-card" onclick="window.location.href='/book-details.html?id=${book.book_id}'">
                         <div class="book-cover">
                             <img src="${coverUrl}"
                                  alt="${book.title}"

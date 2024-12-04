@@ -1,9 +1,9 @@
-// login.js
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('email', document.getElementById('email').value);
+    const email = document.getElementById('email').value;
+    formData.append('email', email);
     formData.append('password', document.getElementById('password').value);
 
     try {
@@ -15,11 +15,12 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
         const data = await response.json();
 
         if (response.ok) {
-            localStorage.setItem('userId', data.user_id);
+            sessionStorage.setItem('userEmail', email);
+            sessionStorage.setItem('userId', data.user_id);
             
             // Check if admin
-            if (document.getElementById('email').value === 'admin.library@mail.com') {
-                localStorage.setItem('userRole', 'admin');
+            if (email === 'admin.library@mail.com') {
+                sessionStorage.setItem('userRole', 'admin');
                 window.location.href = '/admin.html'; 
             } else {
                 window.location.href = '/'; 

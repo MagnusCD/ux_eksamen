@@ -17,6 +17,8 @@ async function displayBooks(books) {
                 data-book-id="${book.book_id}"
                 tabindex="0" 
                 role="button"
+                alt="Book Cover"
+                loading="lazy"   
                 aria-label="View details for ${book.title} by ${book.author}"
                 onclick="window.location.href='/book-details.html?id=${book.book_id}'"
                 onkeydown="if(event.key === 'Enter') window.location.href='/book-details.html?id=${book.book_id}'">

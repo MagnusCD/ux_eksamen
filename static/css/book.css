@@ -1,13 +1,13 @@
 /* book.css */
 .book-details {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 18rem 2fr;
     gap: 2rem;
     padding: 2rem;
     border-radius: var(--card-border-radius);
     background: white;
     box-shadow: var(--primary-shadow);
-    min-height: 500px;
+    min-height: 25rem;
 }
 
 .book-cover img {
@@ -24,7 +24,7 @@
 
 .book-meta {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     margin-bottom: 2rem;
 }
 
@@ -33,8 +33,11 @@
         grid-template-columns: 1fr;
     }
 
-    .book-cover {
-        max-width: 300px;
+    .book-cover img {
+        width: 100%;
+        max-width: 25rem;
         margin: 0 auto;
+        display: flex;
+        justify-content: center;
     }
 }

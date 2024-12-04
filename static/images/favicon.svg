@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-    <path d="M8 8 Q12 6, 16 8 L16 24 Q12 22, 8 24 Z" fill="#129aca" />
-    <path d="M16 8 Q20 6, 24 8 L24 24 Q20 22, 16 24 Z" fill="#e18985" />
+    <path d="M8 8 Q12 6, 16 8 L16 24 Q12 22, 8 24 Z" fill="#0e7496" />
+    <path d="M16 8 Q20 6, 24 8 L24 24 Q20 22, 16 24 Z" fill="#bd554d" />
       
     <line x1="9" y1="14" x2="15" y2="14" stroke="white" stroke-width="1"/>
     <line x1="9" y1="16" x2="15" y2="16" stroke="white" stroke-width="1"/>

@@ -4,11 +4,11 @@
 
 :root {
     /* Base font size */
-    font-size: 16px;
+    font-size:16px;
 
     /* Colors */
-    --primary-col: #e18985;  
-    --secondary-col: #129aca; 
+    --primary-col: #bd554d;  
+    --secondary-col: #0e7496; 
     --tertiary-col: #19242e;   
     --plain-white-col: #ffffff;
     --grey-col: #555;

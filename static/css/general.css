@@ -35,7 +35,8 @@ h1, h2, h3, .logo {
 }
 
 .button {
-    padding: 0.5rem 1.5rem;
+    padding: 1rem 1.5rem;
+    margin-top: -0.5rem;
     border-radius: var(--button-border-radius);
     border: none;
     cursor: pointer;
@@ -55,7 +56,7 @@ h1, h2, h3, .logo {
 .load-more {
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 
 .back-to-top {
@@ -71,8 +72,10 @@ h1, h2, h3, .logo {
     color: var(--plain-white-col);
     cursor: pointer;
     border-radius: var(--button-border-radius);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .back-to-top:hover {

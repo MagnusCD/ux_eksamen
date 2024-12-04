@@ -1,6 +1,6 @@
 // admin.js
 function checkAdminAuth() {
-    const isAdmin = localStorage.getItem('userRole') === 'admin';
+    const isAdmin = sessionStorage.getItem('userRole') === 'admin';
     if (!isAdmin) {
         window.location.href = '/'; 
         return false;

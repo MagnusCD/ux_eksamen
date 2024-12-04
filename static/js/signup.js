@@ -3,7 +3,14 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    
+    const password = formData.get('password');
+    const confirmPassword = formData.get('confirm_password');
+
+    if (password !== confirmPassword) {
+        alert('Passwords do not match. Please try again.');
+        return;
+    }
+
     try {
         const response = await fetch('http://localhost:8080/users', {
             method: 'POST',

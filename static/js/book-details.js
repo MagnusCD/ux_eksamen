@@ -1,33 +1,17 @@
-// book-detail.js
+// book-details.js
 function checkLoginStatus() {
-    return localStorage.getItem('userId') !== null;
+    return sessionStorage.getItem('userId') !== null;
 }
 
 function showLoginMessage() {
     alert('You must be logged in to use this feature.');
 }
 
-async function fetchWithRetry(url, maxRetries = 3, delay = 1000) {
-    for (let i = 0; i < maxRetries; i++) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            if (i === maxRetries - 1) throw error;
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
-    }
-}
-
 async function fetchBookDetails(bookId) {
     try {
-        const details = await fetchWithRetry(`http://localhost:8080/books/${bookId}`);
-        if (details && details.cover && details.cover.trim() !== '') {
-            return details;
-        }
-        return { ...details, cover: 'static/images/placeholder-cover.png' };
+        const response = await fetch(`http://localhost:8080/books/${bookId}`);
+        const details = await response.json();
+        return details;
     } catch (error) {
         console.error('Error fetching book details:', error);
         return null;
@@ -36,11 +20,8 @@ async function fetchBookDetails(bookId) {
 
 async function fetchBookDetailsForAdmin(bookId) {
     try {
-        const details = await fetchWithRetry(`http://localhost:8080/admin/books/${bookId}`);
-        if (details && details.cover && details.cover.trim() !== '') {
-            return details;
-        }
-        return { ...details, cover: 'static/images/placeholder-cover.png' };
+        const response = await fetch(`http://localhost:8080/admin/books/${bookId}`);
+        return await response.json();
     } catch (error) {
         console.error('Error fetching book details:', error);
         return null;
@@ -60,33 +41,17 @@ async function findAuthorId(authorName) {
 }
 
 async function displayBookDetails(book, bookId) {
-    const bookDetailsContainer = document.getElementById('book-details');
-    
-    // Show skeleton loading
-    bookDetailsContainer.innerHTML = `
-        <div class="book-cover book-cover-skeleton"></div>
-        <div class="book-info">
-            <h1 class="book-title-skeleton"></h1>
-            <p class="author book-author-skeleton"></p>
-            <div class="book-meta">
-                <div><strong>Published:</strong><p class="book-published-skeleton"></p></div>
-                <div><strong>Publisher:</strong><p class="book-publisher-skeleton"></p></div>
-            </div>
-            <div class="button-group book-buttons-skeleton"></div>
-        </div>
-    `;
-
     const isLoggedIn = checkLoginStatus();
-    const isAdmin = localStorage.getItem('userRole') === 'admin';
+    const isAdmin = sessionStorage.getItem('userRole') === 'admin';
+    const bookDetailsContainer = document.getElementById('book-details');
+    const authorElement = await createAuthorLink(book);
 
     const loanButton = isLoggedIn 
         ? `<button class="button button-primary" onclick="loanBook(${bookId})">Loan this book</button>`
         : `<button class="button button-primary" onclick="showLoginMessage()">Loan this book</button>`;
 
-    const authorElement = await createAuthorLink(book);
-
     bookDetailsContainer.innerHTML = `
-        <div class="book-cover"><img src="${book.cover || 'static/images/placeholder-cover.png'}" alt="${book.title}" onerror="this.src='/static/images/placeholder-cover.png'"></div>
+        <div class="book-cover"><img src="${book.cover || 'static/images/placeholder-cover.png'}" alt="${book.title}" onerror="this.src='static/images/placeholder-cover.png'"></div>
         <div class="book-info">
             <h1>${book.title}</h1>
             <p class="author">By ${authorElement.outerHTML}</p>
@@ -100,23 +65,19 @@ async function displayBookDetails(book, bookId) {
 
     if (isAdmin) {
         const bookDetails = await fetchBookDetailsForAdmin(bookId);
-        if (bookDetails) {
-            let loanHistoryHTML = '';
-            if (bookDetails.loans.length > 0) {
-                loanHistoryHTML = `
-                    <div class="loan-history">
-                        <h2>Loan History</h2>
-                        <ul>${bookDetails.loans.reverse().map(loan => `<li>User ID: ${loan.user_id}, Loan Date: ${loan.loan_date}</li>`).join('')}</ul>
-                    </div>
-                `;
-            } else {
-                loanHistoryHTML = `
-                    <div class="loan-history">
-                        <h2>Loan History</h2>
-                        <p>No loans for this book.</p>
-                    </div>
-                `;
-            }
+        if (bookDetails && bookDetails.loans) {
+            const loanHistoryHTML = bookDetails.loans.length > 0
+                ? `<div class="loan-history">
+                       <h2>Loan History</h2>
+                       <ul>${bookDetails.loans.reverse().map(loan => 
+                           `<li>User ID: ${loan.user_id}, Loan Date: ${loan.loan_date}</li>`).join('')}
+                       </ul>
+                   </div>`
+                : `<div class="loan-history">
+                       <h2>Loan History</h2>
+                       <p>No loans for this book.</p>
+                   </div>`;
+                   
             bookDetailsContainer.innerHTML += loanHistoryHTML;
         }
     }
@@ -144,7 +105,7 @@ async function loanBook(bookId) {
     }
 
     try {
-        const userId = localStorage.getItem('userId');
+        const userId = sessionStorage.getItem('userId');
         const response = await fetch(`http://localhost:8080/users/${userId}/books/${bookId}`, {
             method: 'POST'
         });

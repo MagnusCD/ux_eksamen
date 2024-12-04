@@ -1,6 +1,6 @@
 // navigation.js
 function checkAuth() {
-    return localStorage.getItem('userId') !== null;
+    return sessionStorage.getItem('userEmail') !== null;
 }
 // Navigation initialization
 function initializeNavigation() {
@@ -52,8 +52,9 @@ function initializeNavigation() {
 
 // Logout function
 function logoutUser() {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userRole');
+    sessionStorage.removeItem('userEmail');
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('userRole');
     window.location.href = '/';
 }
 

@@ -7,6 +7,7 @@ header {
     padding-left: 4rem;
     padding-right: 4rem;
     max-width: 1200px;  
+    background-color: var(--);
 }
 
 .header-content {

@@ -80,6 +80,10 @@ footer {
     margin-top: 5rem;
 }
 
+footer p, h3 {
+    color: var(--plain-white-col);
+}
+
 .footer-content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

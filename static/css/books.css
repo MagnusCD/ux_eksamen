@@ -20,12 +20,12 @@
 .book-card h3, p {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    color: var(--tertiary-col);
 }
 
 .book-card img {
     width: 100%;
     height: auto;
-    border-radius: var(--)
 }
 
 @media (max-width: 768px) {    

@@ -1,49 +1,51 @@
-// author.js
 const bookDetailsCache = new Map();
-
-async function getBookCover(bookId) {
-    if (bookDetailsCache.has(bookId)) {
-        return bookDetailsCache.get(bookId).cover;
-    }
-
-    try {
-        const response = await fetch(`http://localhost:8080/books/${bookId}`);
-        const bookDetails = await response.json();
-        bookDetailsCache.set(bookId, bookDetails);
-        return bookDetails.cover || 'static/images/placeholder-cover.png';
-    } catch (error) {
-        console.error(`Error fetching details for book ${bookId}:`, error);
-        return 'static/images/placeholder-cover.png';
-    }
-}
 
 async function displayAuthorBooks(books, authorName) {
     document.getElementById('author-name').textContent = `Books by ${authorName}`;
     const bookList = document.getElementById('book-list');
 
-    // Vis skeleton loading
-    bookList.innerHTML = '<div class="book-card book-card-skeleton"></div>'.repeat(5);
-
     if (books.length > 0) {
-        const bookCards = await Promise.all(
-            books.map(async (book) => {
-                const coverUrl = await getBookCover(book.book_id);
-                return `
-                    <div class="book-card" onclick="window.location.href='/book-details.html?id=${book.book_id}'">
-                        <div class="book-cover">
-                            <img src="${coverUrl}"
-                                 alt="${book.title}"
-                                 onerror="this.src='static/images/placeholder-cover.png'"
-                            />
-                        </div>
-                        <h3>${book.title}</h3>
-                        <p>${book.author}</p>
-                    </div>
-                `;
-            })
-        );
+        // Først vis alle bøger med placeholder billeder
+        const bookCards = books.map(book => `
+            <div class="book-card" 
+                data-book-id="${book.book_id}"
+                onclick="window.location.href='/book-details.html?id=${book.book_id}'">
+                <div class="book-cover">
+                    <img src="static/images/placeholder-cover.png"
+                         alt="${book.title}"
+                         onerror="this.src='static/images/placeholder-cover.png'"
+                    />
+                </div>
+                <h3>${book.title}</h3>
+                <p>${book.author}</p>
+            </div>
+        `);
 
         bookList.innerHTML = bookCards.join('');
+
+        // Derefter hent og opdater covers
+        for (const book of books) {
+            let cover = 'static/images/placeholder-cover.png';
+            if (bookDetailsCache.has(book.book_id)) {
+                const cachedDetails = bookDetailsCache.get(book.book_id);
+                if (cachedDetails.cover && cachedDetails.cover.trim() !== '') {
+                    cover = cachedDetails.cover;
+                }
+            } else {
+                try {
+                    const response = await fetch(`http://localhost:8080/books/${book.book_id}`);
+                    const details = await response.json();
+                    if (details.cover && details.cover.trim() !== '') {
+                        bookDetailsCache.set(book.book_id, details);
+                        cover = details.cover;
+                    }
+                } catch (error) {
+                    console.error(`Error fetching details for book ${book.book_id}:`, error);
+                }
+            }
+            const img = bookList.querySelector(`[data-book-id="${book.book_id}"] img`);
+            if (img) img.src = cover;
+        }
     } else {
         bookList.innerHTML = '<p>No books found for this author.</p>';
     }

@@ -13,7 +13,6 @@
 .book-cover img {
     width: 300px;
     height: auto;
-    border-radius: var(--card-border-radius);
 }
 
 .book-info .author {

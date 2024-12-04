@@ -2,7 +2,7 @@
 .book-details {
     display: grid;
     grid-template-columns: 18rem 2fr;
-    gap: 2rem;
+    gap: 4rem;
     padding: 2rem;
     border-radius: var(--card-border-radius);
     background: white;

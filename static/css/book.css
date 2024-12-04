@@ -7,14 +7,11 @@
     border-radius: var(--card-border-radius);
     background: white;
     box-shadow: var(--primary-shadow);
-}
-
-.book-cover {
-    width: 100%;
+    min-height: 500px;
 }
 
 .book-cover img {
-    width: 100%;
+    width: 300px;
     height: auto;
     border-radius: var(--card-border-radius);
 }
@@ -28,9 +25,7 @@
 .book-meta {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
     margin-bottom: 2rem;
-    padding: 1rem;
 }
 
 @media (max-width: 768px) {

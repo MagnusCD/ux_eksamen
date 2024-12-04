@@ -109,28 +109,39 @@ function debounce(func, wait) {
  async function displayBooks(books) {
     const allBooksContainer = document.getElementById('all-books');
     allBooksContainer.innerHTML = '';
- 
+
+    // Show a loading indicator
+    allBooksContainer.innerHTML = '<div class="book-card book-card-skeleton"></div>'.repeat(10);
+
     const displayedBookIds = new Set();
- 
+
     if (Array.isArray(books)) {
-        for (const book of books) {
-            if (!displayedBookIds.has(book.book_id)) {
-                const bookCard = await createBookCard(book);
-                allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
-                displayedBookIds.add(book.book_id);
-            }
-        }
+        const bookCards = await Promise.all(
+            books.map(async (book) => {
+                if (!displayedBookIds.has(book.book_id)) {
+                    const bookCard = await createBookCard(book);
+                    displayedBookIds.add(book.book_id);
+                    return bookCard;
+                }
+            })
+        );
+
+        allBooksContainer.innerHTML = bookCards.filter(Boolean).join('');
     } else {
         const initialBooks = await fetchRandomBooks(10);
-        for (const book of initialBooks) {
-            if (!displayedBookIds.has(book.book_id)) {
-                const bookCard = await createBookCard(book);
-                allBooksContainer.insertAdjacentHTML('beforeend', bookCard);
-                displayedBookIds.add(book.book_id);
-            }
-        }
+        const initialBookCards = await Promise.all(
+            initialBooks.map(async (book) => {
+                if (!displayedBookIds.has(book.book_id)) {
+                    const bookCard = await createBookCard(book);
+                    displayedBookIds.add(book.book_id);
+                    return bookCard;
+                }
+            })
+        );
+
+        allBooksContainer.innerHTML = initialBookCards.filter(Boolean).join('');
     }
- }
+}
  
  async function loadMoreBooks() {
     try {

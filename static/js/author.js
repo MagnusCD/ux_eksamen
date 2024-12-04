@@ -1,4 +1,3 @@
-// author.js
 const bookDetailsCache = new Map();
 
 async function getBookCover(bookId) {
@@ -10,7 +9,7 @@ async function getBookCover(bookId) {
         const response = await fetch(`http://localhost:8080/books/${bookId}`);
         const bookDetails = await response.json();
         bookDetailsCache.set(bookId, bookDetails);
-        return bookDetails.cover || '/static/images/placeholder-cover.png';
+        return bookDetails.cover || 'static/images/placeholder-cover.png';
     } catch (error) {
         console.error(`Error fetching details for book ${bookId}:`, error);
         return '/static/images/placeholder-cover.png';
@@ -21,9 +20,10 @@ async function displayAuthorBooks(books, authorName) {
     document.getElementById('author-name').textContent = `Books by ${authorName}`;
     const bookList = document.getElementById('book-list');
 
-    if (books.length > 0) {
-        bookList.innerHTML = '';
+    // Vis skeleton loading
+    bookList.innerHTML = '<div class="book-card book-card-skeleton"></div>'.repeat(10);
 
+    if (books.length > 0) {
         const bookCards = await Promise.all(
             books.map(async (book) => {
                 const coverUrl = await getBookCover(book.book_id);
@@ -32,7 +32,7 @@ async function displayAuthorBooks(books, authorName) {
                         <div class="book-cover">
                             <img src="${coverUrl}"
                                  alt="${book.title}"
-                                 onerror="this.src='/static/images/placeholder-cover.png'"
+                                 onerror="this.src='static/images/placeholder-cover.png'"
                             />
                         </div>
                         <h3>${book.title}</h3>

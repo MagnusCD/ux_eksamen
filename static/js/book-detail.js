@@ -1,4 +1,3 @@
-// book-detail.js
 function checkLoginStatus() {
     return localStorage.getItem('userId') !== null;
 }
@@ -60,6 +59,22 @@ async function findAuthorId(authorName) {
 }
 
 async function displayBookDetails(book, bookId) {
+    const bookDetailsContainer = document.getElementById('book-details');
+    
+    // Show skeleton loading
+    bookDetailsContainer.innerHTML = `
+        <div class="book-cover book-cover-skeleton"></div>
+        <div class="book-info">
+            <h1 class="book-title-skeleton"></h1>
+            <p class="author book-author-skeleton"></p>
+            <div class="book-meta">
+                <div><strong>Published:</strong><p class="book-published-skeleton"></p></div>
+                <div><strong>Publisher:</strong><p class="book-publisher-skeleton"></p></div>
+            </div>
+            <div class="button-group book-buttons-skeleton"></div>
+        </div>
+    `;
+
     const isLoggedIn = checkLoginStatus();
     const isAdmin = localStorage.getItem('userRole') === 'admin';
 
@@ -67,15 +82,10 @@ async function displayBookDetails(book, bookId) {
         ? `<button class="button button-primary" onclick="loanBook(${bookId})">Loan this book</button>`
         : `<button class="button button-primary" onclick="showLoginMessage()">Loan this book</button>`;
 
-    const addToFavoritesButton = isLoggedIn
-        ? `<button class="button button-secondary" onclick="addToFavorites(${bookId})"><i class="fa-regular fa-heart"></i> Add to favorites</button>`
-        : `<button class="button button-secondary" onclick="showLoginMessage()"><i class="fa-regular fa-heart"></i> Add to favorites</button>`;
-
     const authorElement = await createAuthorLink(book);
 
-    const bookDetailsContainer = document.getElementById('book-details');
     bookDetailsContainer.innerHTML = `
-        <div class="book-cover"><img src="${book.cover || '/static/images/placeholder-cover.png'}" alt="${book.title}" onerror="this.src='/static/images/placeholder-cover.png'"></div>
+        <div class="book-cover"><img src="${book.cover || 'static/images/placeholder-cover.png'}" alt="${book.title}" onerror="this.src='/static/images/placeholder-cover.png'"></div>
         <div class="book-info">
             <h1>${book.title}</h1>
             <p class="author">By ${authorElement.outerHTML}</p>
@@ -152,30 +162,6 @@ async function loanBook(bookId) {
         console.error('Error:', error);
         alert('Error loaning book.');
     }
-}
-
-async function addToFavorites(bookId) {
-    if (!checkLoginStatus()) {
-        showLoginMessage();
-        return;
-    }
-
-    const button = event.target.closest('button');
-    const icon = button.querySelector('i');
-    icon.classList.toggle('fa-regular');
-    icon.classList.toggle('fa-solid');
-
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    const index = favorites.indexOf(bookId);
-    
-    if (index === -1) {
-        favorites.push(bookId);
-        alert('Book added to favorites!');
-    } else {
-        favorites.splice(index, 1);
-        alert('Book removed from favorites!');
-    }
-    localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

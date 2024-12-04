@@ -6,6 +6,7 @@ main {
     margin: 0 auto;
     padding-left: 4rem;
     padding-right: 4rem;
+    min-height: 65vh;
 }
 
 body {

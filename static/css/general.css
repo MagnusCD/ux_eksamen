@@ -83,10 +83,8 @@ h1, h2, h3, .logo {
     color: var(--plain-white-col);
     cursor: pointer;
     border-radius: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
 }
 
 .back-to-top:hover {

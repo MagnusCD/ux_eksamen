@@ -7,11 +7,12 @@
     font-size:16px;
 
     /* Colors */
-    --primary-col: #bd554d;  
+    --primary-col: #bb5149;  
     --secondary-col: #0e7496; 
     --tertiary-col: #19242e;   
     --plain-white-col: #ffffff;
-    --grey-col: #555;
+    --hover-tertiary-col: #555;
+    --hover-primary-col: #bb5049b0;
         
     /* Shadows */
     --primary-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);

@@ -1,4 +1,5 @@
 // admin.js
+
 function checkAdminAuth() {
     const isAdmin = sessionStorage.getItem('userRole') === 'admin';
     if (!isAdmin) {
@@ -11,8 +12,15 @@ function checkAdminAuth() {
 async function fetchAuthors() {
     try {
         const response = await fetch('http://localhost:8080/authors');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const authors = await response.json();
         const select = document.getElementById('authorSelect');
+        
+        if (!select) {
+            throw new Error('Author select element not found');
+        }
         
         authors.sort((a, b) => a.author_name.localeCompare(b.author_name));
         
@@ -26,14 +34,25 @@ async function fetchAuthors() {
         });
     } catch (error) {
         console.error('Error fetching authors:', error);
+        const select = document.getElementById('authorSelect');
+        if (select) {
+            select.innerHTML = '<option value="">Error loading authors</option>';
+        }
     }
 }
 
 async function fetchPublishers() {
     try {
         const response = await fetch('http://localhost:8080/publishers');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const publishers = await response.json();
         const select = document.getElementById('publisherSelect');
+        
+        if (!select) {
+            throw new Error('Publisher select element not found');
+        }
         
         publishers.sort((a, b) => a.publisher_name.localeCompare(b.publisher_name));
         
@@ -47,88 +66,97 @@ async function fetchPublishers() {
         });
     } catch (error) {
         console.error('Error fetching publishers:', error);
+        const select = document.getElementById('publisherSelect');
+        if (select) {
+            select.innerHTML = '<option value="">Error loading publishers</option>';
+        }
     }
 }
 
-document.getElementById('addBookForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!checkAdminAuth()) return;
-    
-    const formData = new FormData(e.target);
+async function handleFormSubmit(url, formData, successMessage, refreshFunction) {
     try {
-        const response = await fetch('http://localhost:8080/admin/books', {
+        const response = await fetch(url, {
             method: 'POST',
             body: formData
         });
         
-        if (response.ok) {
-            alert('Book added successfully!');
-            e.target.reset();
-            await fetchAuthors();
-            await fetchPublishers();
-        } else {
+        if (!response.ok) {
             const data = await response.json();
-            alert(data.error || 'Error adding book');
+            throw new Error(data.error || `HTTP error! status: ${response.status}`);
         }
+        
+        alert(successMessage);
+        if (refreshFunction) {
+            await refreshFunction();
+        }
+        return true;
     } catch (error) {
         console.error('Error:', error);
-        alert('Error adding book');
+        alert(error.message || 'An error occurred');
+        return false;
     }
-});
+}
 
-document.getElementById('addAuthorForm').addEventListener('submit', async (e) => {
+document.getElementById('addBookForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!checkAdminAuth()) return;
     
     const formData = new FormData(e.target);
-    try {
-        const response = await fetch('http://localhost:8080/admin/authors', {
-            method: 'POST',
-            body: formData
-        });
-        
-        if (response.ok) {
-            alert('Author added successfully!');
-            e.target.reset();
-            await fetchAuthors();
-        } else {
-            const data = await response.json();
-            alert(data.error || 'Error adding author');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error adding author');
+    const success = await handleFormSubmit(
+        'http://localhost:8080/admin/books',
+        formData,
+        'Book added successfully!'
+    );
+    
+    if (success) {
+        e.target.reset();
+        await Promise.all([fetchAuthors(), fetchPublishers()]);
     }
 });
 
-document.getElementById('addPublisherForm').addEventListener('submit', async (e) => {
+document.getElementById('addAuthorForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!checkAdminAuth()) return;
     
     const formData = new FormData(e.target);
-    try {
-        const response = await fetch('http://localhost:8080/admin/publishers', {
-            method: 'POST',
-            body: formData
-        });
-        
-        if (response.ok) {
-            alert('Publisher added successfully!');
-            e.target.reset();
-            await fetchPublishers();
-        } else {
-            const data = await response.json();
-            alert(data.error || 'Error adding publisher');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error adding publisher');
+    const success = await handleFormSubmit(
+        'http://localhost:8080/admin/authors',
+        formData,
+        'Author added successfully!'
+    );
+    
+    if (success) {
+        e.target.reset();
+        await fetchAuthors();
     }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+document.getElementById('addPublisherForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
     if (!checkAdminAuth()) return;
     
-    fetchAuthors();
-    fetchPublishers();
+    const formData = new FormData(e.target);
+    const success = await handleFormSubmit(
+        'http://localhost:8080/admin/publishers',
+        formData,
+        'Publisher added successfully!'
+    );
+    
+    if (success) {
+        e.target.reset();
+        await fetchPublishers();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        if (!checkAdminAuth()) return;
+        
+        await Promise.all([
+            fetchAuthors(),
+            fetchPublishers()
+        ]);
+    } catch (error) {
+        console.error('Error initializing admin page:', error);
+    }
 });

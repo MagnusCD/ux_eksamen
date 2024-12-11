@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 
     <path d="M30 10 Q50 5, 70 10 L70 40 Q50 35, 30 40 Z" fill="#0e7496" />
-    <path d="M70 10 Q90 5, 110 10 L110 40 Q90 35, 70 40 Z" fill="#bd554d" />
+    <path d="M70 10 Q90 5, 110 10 L110 40 Q90 35, 70 40 Z" fill="#bb5149" />
     
     <text x="112" y="32" font-family="Merriweather, serif" font-size="20" fill="#19242e">
         PageFlow

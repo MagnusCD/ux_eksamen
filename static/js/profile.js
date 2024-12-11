@@ -1,59 +1,84 @@
 // profile.js
+
+// Auth check
 function checkAuth() {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
-        window.location.href = '/login.html';
+        window.location.href = 'login.html';
         return null;
     }
     return userId;
 }
 
-async function fetchUserProfile() {
-    const userId = checkAuth();
-    if (!userId) return;
-
+// API calls
+async function fetchUserProfile(userId) {
     try {
         const response = await fetch(`http://localhost:8080/users/${userId}`);
-        const userData = await response.json();
-        return userData;
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
     } catch (error) {
         console.error('Error fetching user profile:', error);
+        alert('Failed to load profile data. Please try again.');
         return null;
     }
 }
 
+// Display functions
 function displayUserProfile(userData) {
-    document.getElementById('first_name').value = userData.first_name;
-    document.getElementById('last_name').value = userData.last_name;
-    document.getElementById('email').value = userData.email;
-    document.getElementById('address').value = userData.address;
-    document.getElementById('phone_number').value = userData.phone_number;
-    document.getElementById('birth_date').value = userData.birth_date;
-    document.getElementById('membership_date').value = new Date(userData.membership_date).toLocaleDateString();
+    try {
+        const fields = [
+            'first_name', 'last_name', 'email', 
+            'address', 'phone_number', 'birth_date'
+        ];
+
+        fields.forEach(field => {
+            const element = document.getElementById(field);
+            if (element) {
+                element.value = userData[field] || '';
+            }
+        });
+
+        const membershipDate = document.getElementById('membership_date');
+        if (membershipDate && userData.membership_date) {
+            membershipDate.value = new Date(userData.membership_date).toLocaleDateString();
+        }
+    } catch (error) {
+        console.error('Error displaying user profile:', error);
+        alert('Error displaying profile information');
+    }
 }
 
+// Form handlers
 async function handleProfileUpdate(event) {
     event.preventDefault();
     const userId = checkAuth();
     if (!userId) return;
 
-    const formData = new FormData(event.target);
-    
     try {
+        const formData = new FormData(event.target);
+        
         const response = await fetch(`http://localhost:8080/users/${userId}`, {
             method: 'PUT',
             body: formData
         });
 
-        if (response.ok) {
-            alert('Profile updated successfully!');
-        } else {
+        if (!response.ok) {
             const data = await response.json();
-            alert(data.error || 'Error updating profile');
+            throw new Error(data.error || 'Failed to update profile');
+        }
+
+        alert('Profile updated successfully!');
+        
+        // Refresh profile data
+        const updatedData = await fetchUserProfile(userId);
+        if (updatedData) {
+            displayUserProfile(updatedData);
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error updating profile');
+        console.error('Error updating profile:', error);
+        alert(error.message || 'Error updating profile');
     }
 }
 
@@ -61,35 +86,53 @@ async function handleDeleteAccount() {
     const userId = checkAuth();
     if (!userId) return;
 
-    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-        try {
-            const response = await fetch(`http://localhost:8080/users/${userId}`, {
-                method: 'DELETE'
-            });
-
-            if (response.ok) {
-                localStorage.removeItem('userId');
-                window.location.href = '/';
-            } else {
-                const data = await response.json();
-                alert(data.error || 'Error deleting account');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error deleting account');
+    try {
+        if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            return;
         }
+
+        const response = await fetch(`http://localhost:8080/users/${userId}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.error || 'Failed to delete account');
+        }
+
+        sessionStorage.clear(); // Clear all session data
+        window.location.href = 'index.html';
+    } catch (error) {
+        console.error('Error deleting account:', error);
+        alert(error.message || 'Error deleting account');
     }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const userId = checkAuth();
-    if (!userId) return;
+// Initialize
+async function initializeProfile() {
+    try {
+        const userId = checkAuth();
+        if (!userId) return;
 
-    const userData = await fetchUserProfile();
-    if (userData) {
-        displayUserProfile(userData);
+        const profileForm = document.getElementById('profile-form');
+        const deleteButton = document.getElementById('delete-account');
+
+        if (!profileForm || !deleteButton) {
+            throw new Error('Required elements not found');
+        }
+
+        const userData = await fetchUserProfile(userId);
+        if (userData) {
+            displayUserProfile(userData);
+        }
+
+        profileForm.addEventListener('submit', handleProfileUpdate);
+        deleteButton.addEventListener('click', handleDeleteAccount);
+    } catch (error) {
+        console.error('Error initializing profile:', error);
+        alert('Error loading profile page');
     }
+}
 
-    document.getElementById('profile-form').addEventListener('submit', handleProfileUpdate);
-    document.getElementById('delete-account').addEventListener('click', handleDeleteAccount);
-});
+// Start when DOM is ready
+document.addEventListener('DOMContentLoaded', initializeProfile);

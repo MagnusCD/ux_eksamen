@@ -52,8 +52,16 @@ h1, h2, h3, .logo {
     background-color: var(--primary-col);
 }
 
+.button-primary:hover {
+    background-color: var(--hover-primary-col);
+}
+
 .button-dark {
     background-color: var(--tertiary-col);
+}
+
+.button-dark:hover {
+    background-color: var(--hover-tertiary-col);
 }
 
 .load-more {
@@ -74,15 +82,15 @@ h1, h2, h3, .logo {
     background-color: var(--tertiary-col);
     color: var(--plain-white-col);
     cursor: pointer;
-    border-radius: var(--button-border-radius);
+    border-radius: 100%;
     padding-left: 1rem;
     padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
 .back-to-top:hover {
-    background-color: var(--grey-col);
+    background-color: var(--hover-tertiary-col);
 }
 
 .back-nav {

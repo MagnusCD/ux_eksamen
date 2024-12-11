@@ -39,8 +39,7 @@ h1, h2, h3, .logo {
 }
 
 .button {
-    padding: 1rem 1.5rem;
-    margin-top: -0.5rem;
+    padding: 0.75rem 1.25rem;
     border-radius: var(--button-border-radius);
     border: none;
     cursor: pointer;
@@ -94,3 +93,13 @@ h1, h2, h3, .logo {
     color: var(--tertiary-col);
     font-size: var(--font-size-h3); 
 }   
+
+@media (max-width: 768px) {
+    .button {
+        padding: 0.5rem 0.75rem;
+    }
+    main {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}

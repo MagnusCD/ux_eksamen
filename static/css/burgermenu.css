@@ -2,12 +2,12 @@
 .burger-menu {
     display: none;
     position: absolute;
-    top: 4.75rem;
-    right: 4.25rem;
+    top: 4.1rem;
+    right: 2.25rem;
     flex-direction: column;
     justify-content: space-around;
     width: 2.5rem;
-    height: 2rem;
+    height: 1.9rem;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -16,7 +16,7 @@
 }
 
 .burger-menu span {
-    width: 2.5rem;
+    width: 2rem;
     height: 0.25rem;
     background: var(--tertiary-col);
     border-radius: var(--button-border-radius);
@@ -26,6 +26,5 @@
 @media (max-width: 768px) {
     .burger-menu {
         display: flex;
-        position: fixed;
     }
 }

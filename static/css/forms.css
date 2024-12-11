@@ -102,4 +102,8 @@ form {
     .form-section {
         padding: 1.5rem;
     }
+    .button-group .button:not(:first-child) {
+        margin-left: 0rem;
+        margin-top: 1rem;
+    }
 }

@@ -127,6 +127,11 @@ footer p, h3 {
 }
 
 @media (max-width: 768px) {
+    header {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
     }
@@ -157,9 +162,3 @@ footer p, h3 {
     }
 }
 
-@media (max-width: 768px) {
-    header {
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
-}

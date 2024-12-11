@@ -10,6 +10,10 @@
     min-height: 25rem;
 }
 
+.book-details .button {
+    margin-bottom: 2rem;
+}
+
 .book-cover img {
     width: 300px;
     height: auto;
@@ -30,6 +34,7 @@
 @media (max-width: 768px) {
     .book-details {
         grid-template-columns: 1fr;
+        gap: 0rem;
     }
 
     .book-cover img {

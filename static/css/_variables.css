@@ -35,9 +35,12 @@
     --font-body: "Source Sans Pro", sans-serif;
     
     /* Font sizes */
-    --font-size-h1: 2rem;
-    --font-size-h2: 1.5rem;
-    --font-size-h3: 1.25rem;
-    --font-size-body: 0.875rem;
-    --font-size-button: 1rem;
+    --font-size-h1: 3.5rem;
+    --font-size-h2: 2.5rem;  
+    --font-size-h3: 1.25rem;   
+    --font-size-body: 1rem;   
+    --font-size-button: 1rem; 
+
+    --font-size-h1-mobile: 2rem;
+    --font-size-h2-mobile: 1.5rem;
 }

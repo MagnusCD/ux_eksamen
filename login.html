@@ -12,22 +12,23 @@
     <link rel="stylesheet" href="static/css/footerheader.css">
     <link rel="stylesheet" href="static/css/forms.css">
     <script defer src="static/js/login.js"></script>
+    <script defer src="static/js/back-button.js"></script>
 </head>
 
 <body>
     <header>
         <section class="header-content">
-            <a href="/" class="logo">
+            <a href="index.html" class="logo">
                 <img src="static/images/logo.svg" alt="PageFlow Logo" aria-label="Go to homepage">
             </a>
             <div class="nav-right">
-                <a href="/signup.html" class="button button-dark">Sign up</a></div>
+                <a href="signup.html" class="button button-dark">Sign up</a></div>
         </section>  
     </header>
 
     <main>
         <div class="back-nav">
-            <a href="#" onclick="window.history.back(); return false;" class="back-button" aria-label="Go back">
+            <a href="#" class="back-button" aria-label="Go back">
                 <span>&#8592;</span> Back to Previous Page
             </a>
         </div>

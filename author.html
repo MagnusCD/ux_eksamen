@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="static/css/books.css">
     <script defer src="static/js/navigation.js"></script>
     <script defer src="static/js/author.js"></script>
+    <script defer src="static/js/back-button.js"></script>
 </head>
 
 <body>
@@ -24,26 +25,27 @@
         </button>
 
         <section class="header-content">
-            <a href="/" class="logo">
+            <a href="index.html" class="logo">
                 <img src="static/images/logo.svg" alt="PageFlow Logo" aria-label="Go to homepage">
             </a>
             <div class="nav-right" id="nav-guest-menu">
-              <a href="/signup.html" class="button button-primary">Sign up for free</a>
-              <a href="/login.html" class="button button-dark">Log in</a>
+              <a href="signup.html" class="button button-primary">Sign up for free</a>
+              <a href="login.html" class="button button-dark">Log in</a>
             </div>
             <div class="nav-right" id="nav-authenticated-menu" style="display: none;">
-                <a href="/profile.html" class="nav-link"><i class="fa-small fa-regular fa-user"></i> My Profile</a>                
-              <button class="button button-dark" onclick="logoutUser()">Log out</button>
+                <a href="profile.html" class="nav-link"><i class="fa-small fa-regular fa-user"></i> My Profile</a>                
+                <button class="button logout button-dark">Log out</button>
             </div>
         </section>
     </header>
 
     <main>
         <div class="back-nav">
-            <a href="#" onclick="window.history.back(); return false;" class="back-button" aria-label="Go back">
+            <a href="#" class="back-button" aria-label="Go back">
                 <span>&#8592;</span> Back to Previous Page
             </a>
         </div>
+
         <section class="books-section">
             <div class="books-header">
                 <h1 id="author-name"></h1>

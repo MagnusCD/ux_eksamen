@@ -36,10 +36,10 @@ h1, h2, h3, .logo {
 
 .button, .nav-link {
     font-size: var(--font-size-button);
+    padding: 0.75rem 1.25rem;
 }
 
 .button {
-    padding: 0.75rem 1.25rem;
     border-radius: var(--button-border-radius);
     border: none;
     cursor: pointer;
@@ -94,12 +94,21 @@ h1, h2, h3, .logo {
     font-size: var(--font-size-h3); 
 }   
 
-@media (max-width: 768px) {
-    .button {
-        padding: 0.5rem 0.75rem;
+@media (max-width: 1024px) {
+    h1 {
+        font-size: var(--font-size-h1-mobile);
     }
+    h2 {
+        font-size: var(--font-size-h2-mobile);
+    }
+}
+
+@media (max-width: 768px) {
     main {
         padding-left: 2rem;
         padding-right: 2rem;
+    }
+    .button {
+        padding: 0.5rem 0.75rem;
     }
 }

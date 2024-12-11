@@ -42,32 +42,26 @@ function initializeNavigation() {
             }
         });
     }
+}
 
-    // Logout handler
-    const logoutButton = document.querySelector('button[onclick="logoutUser()"]');
+document.addEventListener('DOMContentLoaded', () => {
+    // Find logout knappen med den korrekte class
+    const logoutButton = document.querySelector('.logout');
+    
     if (logoutButton) {
         logoutButton.addEventListener('click', logoutUser);
     }
-}
+});
 
 // Logout function
 function logoutUser() {
     sessionStorage.removeItem('userEmail');
     sessionStorage.removeItem('userId');
     sessionStorage.removeItem('userRole');
-    window.location.href = '/';
+    window.location.href = 'index.html';
 }
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initializeNavigation();
-});
-
-// Set active navigation link
-const currentPath = window.location.pathname;
-const navLinks = document.querySelectorAll('.nav-link');
-navLinks.forEach(link => {
-    if (link.getAttribute('href') === currentPath) {
-        link.classList.add('active');
-    }
 });

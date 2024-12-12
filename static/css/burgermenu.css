@@ -2,7 +2,7 @@
 .burger-menu {
     display: none;
     position: absolute;
-    top: 4rem;
+    top: 3.75rem;
     right: 2.25rem;
     flex-direction: column;
     justify-content: space-around;

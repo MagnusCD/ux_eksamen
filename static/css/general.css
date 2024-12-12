@@ -78,8 +78,7 @@ h1, h2, h3, .logo {
     font-size: var(--font-size-h1);
     z-index: 99;
     border: none;
-    outline: none;
-    background-color: var(--tertiary-col);
+    background-color: var(--primary-col);
     color: var(--plain-white-col);
     cursor: pointer;
     border-radius: 100%;

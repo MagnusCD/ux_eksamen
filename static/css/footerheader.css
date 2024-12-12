@@ -36,7 +36,6 @@ header {
 .nav-link {
     color: var(--tertiary-col);
     text-decoration: none;
-    padding: 0.5rem 1rem;
     font-family: var(--font-body);
     font-size: var(--font-size-button);
 }

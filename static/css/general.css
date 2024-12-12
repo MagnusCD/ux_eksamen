@@ -45,7 +45,7 @@ h1, h2, h3, .logo {
     cursor: pointer;
     font-size: var(--font-size-button);
     color: var(--background-col);
-    
+    text-decoration: none;
 }
 
 .button-primary {
@@ -58,10 +58,6 @@ h1, h2, h3, .logo {
 
 .button-dark {
     background-color: var(--tertiary-col);
-}
-
-.button:focus {
-    outline: 0.5rem solid var(--secondary-col);
 }
 
 .button-dark:hover {
@@ -80,7 +76,6 @@ h1, h2, h3, .logo {
     bottom: 3rem;
     right: 2rem;
     font-size: var(--font-size-h1);
-    z-index: 99;
     border: none;
     background-color: var(--primary-col);
     color: var(--plain-white-col);
@@ -91,7 +86,7 @@ h1, h2, h3, .logo {
 }
 
 .back-to-top:hover {
-    background-color: var(--hover-tertiary-col);
+    background-color: var(--hover-primary-col);
 }
 
 .back-nav {

@@ -43,9 +43,9 @@ h1, h2, h3, .logo {
     border-radius: var(--button-border-radius);
     border: none;
     cursor: pointer;
-    text-decoration: none;
     font-size: var(--font-size-button);
     color: var(--background-col);
+    
 }
 
 .button-primary {
@@ -58,6 +58,10 @@ h1, h2, h3, .logo {
 
 .button-dark {
     background-color: var(--tertiary-col);
+}
+
+.button:focus {
+    outline: 0.5rem solid var(--secondary-col);
 }
 
 .button-dark:hover {

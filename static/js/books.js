@@ -1,3 +1,5 @@
+"use strict"
+
 // books.js
 
 let currentPage = 1;

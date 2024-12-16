@@ -1,3 +1,5 @@
+"use strict"
+
 // profile.js
 
 // Auth check

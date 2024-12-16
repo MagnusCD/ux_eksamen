@@ -1,3 +1,5 @@
+"use strict"
+
 // features.js
 
 // Constants

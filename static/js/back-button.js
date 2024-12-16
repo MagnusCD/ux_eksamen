@@ -1,3 +1,5 @@
+"use strict"
+
 // back-button.js
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,3 +1,5 @@
+"use strict"
+
 // login.js
 
 function validateEmail(email) {

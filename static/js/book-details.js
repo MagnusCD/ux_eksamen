@@ -1,3 +1,5 @@
+"use strict"
+
 // book-details.js
 
 function checkLoginStatus() {

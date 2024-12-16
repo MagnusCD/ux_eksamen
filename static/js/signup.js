@@ -1,3 +1,5 @@
+"use strict"
+
 // signup.js
 
 document.addEventListener('DOMContentLoaded', () => {

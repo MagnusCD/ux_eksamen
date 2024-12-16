@@ -1,3 +1,5 @@
+"use strict"
+
 // author.js
 
 const bookDetailsCache = new Map();

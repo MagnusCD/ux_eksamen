@@ -25,7 +25,7 @@
     padding: 3rem;
     border-radius: var(--card-border-radius);
     box-shadow: var(--primary-shadow);
-    max-width: 600px;
+    max-width: 37.5rem;
 }
 
 .form-section h2 {

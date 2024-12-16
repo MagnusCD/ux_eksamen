@@ -49,6 +49,10 @@ header {
     margin: 0 auto;
 }
 
+#search-button {
+    border: none;
+}
+
 .search-bar {
     display: flex;
     align-items: center;

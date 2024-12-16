@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = formData.get('email')?.trim();
         const password = formData.get('password');
         const confirmPassword = formData.get('confirm_password');
-        const firstName = formData.get('first_name')?.trim(); 
+        const firstName = formData.get('first_name')?.trim();
         const lastName = formData.get('last_name')?.trim();
         
         // Validate required fields

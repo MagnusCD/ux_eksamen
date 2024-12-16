@@ -108,8 +108,14 @@ h1, h2, h3, .logo {
 }
 
 @media (max-width: 768px) {
+    main {
+        padding-left: 2rem;
+        padding-right: 2rem; 
+    }
 
     .button {
         padding: 0.5rem 0.75rem;
     }
+
+
 }

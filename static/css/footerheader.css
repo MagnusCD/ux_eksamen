@@ -163,5 +163,10 @@ footer p, h3 {
         z-index: 5;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
+
+    input[type="search"] {
+        padding: 0;
+    } 
+
 }
 

@@ -1,7 +1,5 @@
 "use strict"
 
-// back-button.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const backButton = document.querySelector('.back-button');
     console.log('Back button found:', backButton); // Debug log

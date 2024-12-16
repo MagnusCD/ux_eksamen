@@ -1,7 +1,5 @@
 "use strict"
 
-// login.js
-
 function validateEmail(email) {
     return email && email.includes('@') && email.includes('.');
 }

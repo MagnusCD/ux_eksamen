@@ -1,7 +1,5 @@
 "use strict"
 
-// books.js
-
 let currentPage = 1;
 const booksPerPage = 10;
 const bookDetailsCache = new Map();
@@ -34,15 +32,15 @@ async function fetchBookDetails(bookId) {
 
 function createBookCard(book) {
     return `
-        <article class="book-card" 
+        <article class="book-card"
             data-book-id="${book.book_id}"
-            tabindex="0" 
+            tabindex="0"
             role="button"
             aria-label="View details for ${book.title} by ${book.author}"
             onclick="window.location.href='book-details.html?id=${book.book_id}'"
             onkeydown="if(event.key === 'Enter') window.location.href='book-details.html?id=${book.book_id}'">
             <div class="book-cover">
-                <img 
+                <img
                     src="static/images/placeholder-cover.png"
                     alt="Cover of ${book.title}"
                     onerror="this.src='static/images/placeholder-cover.png'"

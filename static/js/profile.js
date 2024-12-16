@@ -1,7 +1,5 @@
 "use strict"
 
-// profile.js
-
 // Auth check
 function checkAuth() {
     const userId = sessionStorage.getItem('userId');

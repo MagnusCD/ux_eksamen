@@ -1,7 +1,5 @@
 "use strict"
 
-// navigation.js
-
 function checkAuth() {
     return sessionStorage.getItem('userEmail') !== null;
 }

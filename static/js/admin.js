@@ -1,11 +1,9 @@
 "use strict"
 
-// admin.js
-
 function checkAdminAuth() {
     const isAdmin = sessionStorage.getItem('userRole') === 'admin';
     if (!isAdmin) {
-        window.location.href = '/'; 
+        window.location.href = '/';
         return false;
     }
     return true;

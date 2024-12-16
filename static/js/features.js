@@ -1,7 +1,5 @@
 "use strict"
 
-// features.js
-
 // Constants
 const DEBOUNCE_DELAY = 300;
 const SCROLL_THRESHOLD = 300;

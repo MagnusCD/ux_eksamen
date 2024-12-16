@@ -1,7 +1,5 @@
 "use strict"
 
-// book-details.js
-
 function checkLoginStatus() {
     return sessionStorage.getItem('userId') !== null;
 }
@@ -63,15 +61,15 @@ async function displayBookDetails(book, bookId) {
 
         const authorElement = await createAuthorLink(book);
 
-        const loanButton = isLoggedIn 
+        const loanButton = isLoggedIn
             ? `<button class="button button-primary" onclick="loanBook(${bookId})">Loan this book</button>`
             : `<button class="button button-primary" onclick="showLoginMessage()">Loan this book</button>`;
 
         bookDetailsContainer.innerHTML = `
             <div class="book-cover">
                 <img src="${book.cover || 'static/images/placeholder-cover.png'}" 
-                     alt="${book.title}" 
-                     onerror="this.src='static/images/placeholder-cover.png'">
+                    alt="${book.title}"
+                    onerror="this.src='static/images/placeholder-cover.png'">
             </div>
             <div class="book-info">
                 <h1>${book.title}</h1>
@@ -90,16 +88,15 @@ async function displayBookDetails(book, bookId) {
                 if (bookDetails && bookDetails.loans) {
                     const loanHistoryHTML = bookDetails.loans.length > 0
                         ? `<div class="loan-history">
-                               <h2>Loan History</h2>
-                               <ul>${bookDetails.loans.reverse().map(loan => 
-                                   `<li>User ID: ${loan.user_id}, Loan Date: ${loan.loan_date}</li>`).join('')}
-                               </ul>
-                           </div>`
+                                <h2>Loan History</h2>
+                                <ul>${bookDetails.loans.reverse().map(loan => 
+                                    `<li>User ID: ${loan.user_id}, Loan Date: ${loan.loan_date}</li>`).join('')}
+                                </ul>
+                            </div>`
                         : `<div class="loan-history">
-                               <h2>Loan History</h2>
-                               <p>No loans for this book.</p>
-                           </div>`;
-                           
+                                <h2>Loan History</h2>
+                                <p>No loans for this book.</p>
+                            </div>`;
                     bookDetailsContainer.innerHTML += loanHistoryHTML;
                 }
             } catch (error) {
